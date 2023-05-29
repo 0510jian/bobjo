@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>certification_quiz</title>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" th:href="@{/static/css/adopt/certification.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+</head>
+<body>
+
+<th:block layout:fragment="content">
+<!-- main container -->
+<div class="main_container">
+
+  <!-- header -->
+  <header class="menu">
+    <th:block>
+      <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px; height: auto;"></h1>
+    </th:block>
+    <div><a href="/adopt/in">입양</a></div>
+    <div><a href="/adopt/out">분양</a></div>
+    <div><a href="/adopt/certification" style="color: #f07635;">인증센터</a></div>
+  </header>
+
+  <form action="/adopt/certification/photo" method="get">
+
+    <input type="hidden" name="a1Seq" th:value="${animal1.a1Seq}">
+    <section style="margin-top:150px;">
+
+      <div th:if="${result == false}" style="width: 100%; text-align: center;">
+        <img src="/static/img/cat.png"><br>
+        퀴즈의 정답이 올바르지 않습니다<br>재도전해주세요<br><br>
+        <input type="button" th:onclick="|location.href='@{/adopt/certification}'|" value="재도전하기"></input>
+      </div>
+
+      <div th:if="${result == true}" style="width: 100%; text-align: center;">
+        <img src="/static/img/new-product.png"><br><br>
+        축하합니다<br>모든 퀴즈를 맞추셨습니다<br><br>
+        <input type="submit" value="물품 준비하러 가기">
+      </div>
+    </section>
+
+  </form>
+
+</div>
+</th:block>
+
+</body>
+</html>
+
+<script>
+</script>

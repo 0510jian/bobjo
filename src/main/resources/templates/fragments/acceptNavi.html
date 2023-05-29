@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>mateAccept</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+</head>
+
+<th:block th:fragment="naviFragment">
+    <navigator>
+        <!-- 알림창 보이게 하는 버튼 -->
+        <button id="naviO" onclick="toBig()" style="display: block;">+</button>
+        <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+        <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+        <div class="float_container" id="float_container" style="display:none;">
+
+
+            <div class="naviAlert">
+                <h3>산책메이트 신청이 왔어요!</h3>
+
+                <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+                <sub>총 1건</sub>
+
+                <div class="alertSet">
+                    <div class="naviInfo">
+                        <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                        <p id="naviA3_nick"><b>닉네임</b></p>
+                        <p id="naviCont">
+                            대분류 : 개<br>
+                            소분류 : 말티즈<br>
+                            <span id="naviMessage">산책 한번 같이 해봐요~! 저는 보통 17시에 나가요요</span>
+
+                        </p>
+                        <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                             메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                    </div>
+                </div>
+                <!-- 거절, 수락 버튼 -->
+                <table class="naviButton" style="width:100%;">
+                    <tr style="width:100%;">
+                        <td><button type="submit" class="btnRefuse" value="false">거절</button></td>
+                        <td><button type="submit" class="btnPermit" value="true">수락</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 알림창 안 보이게 하는 버튼 -->
+            <button id="naviX" onclick="toSmall()">x</button>
+            <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+        </div>
+    </navigator>
+</th:block>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+  <head>
+    <meta charset="utf-8">
+    <title>community_sosWriting</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/community/boardWriting.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+    <script src="/static/ckeditor/ckeditor.js"></script>
+  </head>
+
+  <body>
+    <th:block layout:fragment="content">
+      <div class="main_container">
+        <!--로고 사진 넣기-->
+        <header>
+          <th:block>
+            <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+          </th:block>
+        </header>
+
+
+
+        <section>
+          <!-- 게시판 카테고리 선택 -->
+
+          <div class="content">
+            <form class="" action="/community/sos/write" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="sFin" id="sFin" value="false">
+
+              <!-- 제목 -->
+              <input type="text" class="input" id="b_title" name="sTitle" placeholder="제목을 입력해주세요." required><br><br>
+
+              <!-- 사진첨부 -->
+              <input type="file" class="input" id="b_pic" name="uploadfile" accept="image/png, image/jpeg" value="사진"><br><br>
+
+              <!-- 내용 -->
+              <textarea id="b_cont" name="sContent" placeholder="내용을 입력해주세요." required></textarea><br><br>
+
+              <!-- 취소 / 등록 (취소버튼 누르면 글 목록 페이지로 이동 / 등록버튼 누르면 게시글 작성 ) -->
+              <div class="button"><br>
+                <a href="/community/sos"><button type="button" class="btnCancel">취소</button></a>
+                <button type="submit" class="btnWrite">등록</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </th:block>
+  </body>
+</html>
+<script>
+  CKEDITOR.replace("b_cont");
+
+  function fin(bool) {
+    document.getElementById("sFin").value = bool;
+  }
+</script>

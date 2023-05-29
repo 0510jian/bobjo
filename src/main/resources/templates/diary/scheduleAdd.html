@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+    <head>
+        <meta charset="utf-8">
+        <title>diary_addschedule</title>
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+        <link rel="stylesheet" th:href="@{/static/css/diary/diaryAddschedule.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi2.css}">
+    </head>
+    <body>
+    <th:block layout:fragment="content">
+        <div class="main_container">
+          <header>
+              <th:block>
+                  <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+              </th:block>
+           </header>
+
+        <!-- 해당날짜를 선택하고 들어왔다고 생각함
+        <p>
+        <h3>2022/11/02</h3>
+        </p>
+        -->
+
+            <section>
+                <!-- 본문 -->
+                <form id="c_seq" action="/diary/schedule/write" method="post">
+
+                    <!-- 시간 -->
+
+                    <table style="width:100%; text-align: right;">
+                        <tr>
+                            <td>날짜&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input type="date" id="date" name="date" class="datetime"></td>
+                        </tr>
+                        <tr>
+                            <td>시작시간</td>
+                            <td><input type="time" id="stime" name="stime" class="datetime"></td>
+                        </tr>
+                        <tr>
+                            <td>종료시간</td>
+                            <td><input type="time" id="etime" name="stime" class="datetime"></td>
+                        </tr>
+                    </table>
+
+                    <!-- hidden -->
+                    <input type="hidden" name="cSdate" id="cSdate">
+                    <input type="hidden" name="cEdate" id="cEdate">
+
+                    <br>
+
+
+
+
+                    <!-- 일정 -->
+
+                    <div style="width: 100%; text-align: center;">
+                        <input type="radio" name="scheChoose" id="0" value="0" style="display:none;" onclick="choose(0)">
+                        <label for="0" id="00" class="btn1">병원</label>
+
+                        <input type="radio" name="scheChoose" id="1" value="1" style="display:none;" onclick="choose(1)">
+                        <label for="1" id="11" class="btn1">약</label>
+
+                        <input type="radio" name="scheChoose" id="2" value="2" style="display:none;" onclick="choose(2)">
+                        <label for="2" id="22" class="btn1">미용</label>
+
+                        <input type="radio" name="scheChoose" id="3" value="3" style="display:none;" onclick="choose(3)">
+                        <label for="3" id="33" class="btn1">목욕</label>
+
+                        <input type="radio" name="scheChoose" id="4" value="4" style="display:none;" onclick="choose(4)">
+                        <label for="4" id="44" class="btn1">산책</label>
+
+                        <input type="radio" name="scheChoose" id="5" value="5" style="display:none;" onclick="choose(5)">
+                        <label for="5" id="55" class="btn1">모임</label>
+
+                        <input type="radio" name="scheChoose" id="6" value="6" style="display:none;" onclick="choose(6)">
+                        <label for="6" id="66" class="btn1">기타</label>
+
+                        <input type="radio" name="scheChoose" id="7" value="7" style="display:none;" onclick="choose(7)">
+                        <label for="7" id="77" class="btn1">선택안함</label>
+
+                        <input type="hidden" name="cCate" id="cCate" value="7">
+
+                        <br>
+                    </div>
+
+
+
+
+                    <!-- 메모를 div안으로 넣어주면 메모박스 중간으로 텍스트가 들어가서 뺐음  -->
+                    <div style="text-align: center;">
+                        <input type="text" id="memo" name="cTitle" placeholder="일정의 내용을 적어주세요">
+                    </div><br>
+
+                    <input type="hidden" name="cShare" id="cShare" value="1">
+
+                    <table style="width:100%;"><tr style="width:100%;">
+                        <td style="text-align: left;"><label><input type="checkbox" name="share" id="share">&nbsp;비공개</label></td>
+                        <td style="text-align: right;"><input type="submit" class="btnWrite" value="완료" onclick="submit2()"/></td>
+                    </tr></table>
+
+                    <!--
+                    <input type="radio" name="privChoose" id="0" value="0" style="display:none;" onclick="choose(0)">
+                    <label for="0" id="00" class="btn1">나만보기</label>
+
+                    <input type="radio" name="privChoose" id="1" value="1" style="display:none;" onclick="choose(1)">
+                    <label for="1" id="11" class="btn1">전체공개</label>
+                    -->
+
+                </form>
+            </section>
+
+        </div>
+    </th:block>
+    </body>
+</html>
+
+<script>
+
+
+    window.onload = function() {
+    var number = document.getElementById("cCate").value;
+
+    number = String(number) + String(number);
+
+    document.getElementById(number).style.background="#f07635";
+    document.getElementById(number).style.color="white";
+  }
+
+  function choose(number) {
+    numbers = ['00', '11', '22', '33', '44', '55', '66', '77'];
+    number10 = String(number) + String(number);
+
+    numbers.splice(number, 1);
+
+    // 아닌 라벨 원래대로
+    for(var i=0; i<numbers.length; i++) {
+      document.getElementById(numbers[i]).style.background="rgb(220, 220, 220)";
+      document.getElementById(numbers[i]).style.color="#333";
+    }
+
+    // 특정 라벨 선택
+    document.getElementById(number10).style.background="#f07635";
+    document.getElementById(number10).style.color="white";
+
+    // cShare value 넣어주기
+    document.getElementById("cCate").value = number;
+  }
+
+  function submit2() {
+
+    // 날짜 시간 구하기
+    var date = document.getElementById("date").value;
+    var stime = document.getElementById("stime").value;
+    var etime = document.getElementById("etime").value;
+
+    document.getElementById("cSdate").value = date + " " + stime;
+    document.getElementById("cEdate").value = date + " " + etime;
+
+
+
+    //공개여부 구하기
+    if(document.getElementById("share").checked) {
+        document.getElementById("cShare").value = 0;
+    } else {
+        document.getElementById("cShare").value = 1;
+    }
+  }
+</script>

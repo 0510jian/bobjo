@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>adoptWrite</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/adopt/adoptWrite.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi2.css}">
+</head>
+
+<body>
+    <th:block layout:fragment="content">
+
+        <!-- 상단 메뉴 -->
+        <div class="main_container">
+            <header class="menu">
+                <th:block>
+                    <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+                </th:block>
+            </header>
+
+            <section>
+                <div class="container">
+                    <form action="/adopt/out/write" method="post" enctype="multipart/form-data">
+                        <!-- (1) 반려동물 대분류 선택 -->
+                        1. 반려 동물의 종류를 선택해주세요.<br><br>
+                        <!-- 2번 -->
+                        <input type="hidden" name="a1Seq" id="a1Seq" value="1">
+                        <select id="choice1" class="choice1" onchange="categoryChange(this)" required>
+                            <option>=== 1번 선택 ===</option>
+                            <th:block th:if="${#lists.size(animal1List)} > 0" th:each="animal1:${animal1List}" class="container">
+                                <option name="category" th:value="${animal1.a1Seq}" th:text="${animal1.a1Species}"></option>
+                            </th:block>
+                        </select><br><br><br>
+
+                        <!-- (2) 반려동물 소분류 선택 -->
+                        2. 위에서 고른 반려동물의 종을 선택해주세요.<br><br>
+                        <input type="hidden" name="a2Seq" id="a2Seq" value="-1">
+                        <select id="choice2" class="choice2" onchange="a2Change(this)" required>
+                            <option value="-1">=== 2번 선택 ===</option>
+                            <!-- (1)에서 고른 값에 맞게 (2)의 옵션이 바뀌는 javascript -->
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+
+                                function a2Change(e) {
+                                    barFunc();
+                                    document.getElementById("a2Seq").value = e.value;
+                                }
+
+                                  function categoryChange(e){
+
+                                    barFunc();
+
+                                    document.getElementById("a1Seq").value = e.value;
+
+                                    var target = document.getElementById("choice2");
+
+                                    target.options.length = 0;
+
+                                    var opt1 = document.createElement("option");
+                                    opt1.value = -1;
+                                    opt1.innerHTML = '=== 2번 선택 ===';
+                                    target.appendChild(opt1);
+
+                                    /*[# th:each = "animal2List : ${animal2ListList}"]*/
+                                        var ani1 = document.getElementById("choice1").value;
+
+                                      /*[# th:each = "animal2 : ${animal2List}"]*/
+
+                                          var ani2Seq = /*[[${animal2.a2Seq}]]*/;
+                                          var ani2Species = /*[[${animal2.a2Species}]]*/;
+                                          var a1Seq = /*[[${animal2.a1Seq}]]*/;
+
+                                          if (a1Seq == ani1) {
+                                              var opt = document.createElement("option");
+
+                                              opt.value = ani2Seq;
+                                              opt.innerHTML = ani2Species;
+                                              target.appendChild(opt);
+                                          }
+                                      /*[/]*/
+                                    /*[/]*/
+                                  }
+                                /*]]>*/
+                              </script>
+                        </select><br><br><br>
+
+                        <!-- (3) 반려동물의 이름 입력 -->
+                        3. 반려동물의 이름을 입력해주세요.
+                        <input type="text" id="a3_nick" placeholder="3~10 글자 사이" onchange="barFunc()" required><br><br>
+                        <input type="file" class="input" id="d_pic1" name="uploadfile" accept="image/png, image/jpeg" value="사진">
+
+                        <!-- (4) 반려동물의 성별 입력 -->
+                        4. 반려동물의 성별을 입력해주세요.
+                        <!-- <select id="n_sex" required>
+                            <option>=== 선택 ===</option>
+                            <option value="1">남</option>
+                            <option value="2">여</option>
+                        </select> -->
+                        <label><input type="radio" name="nSex" value="1" onchange="barFunc()">남</label>
+                        <label><input type="radio" name="nSex" value="2" onchange="barFunc()">여</label>
+
+
+                        <br><br>
+
+                        <!-- (5) 반려동물의 생일(나이) 입력 -->
+                        5. 반려동물의 생일을 입력해주세요.
+                        <input type="date" id="nBirth" name="nBirth" onchange="barFunc()" required><br><br>
+
+                        <!-- (6) 반려동물의 특이사항 입력 -->
+                        6. 반려동물의 특이사항을 입력해주세요. <br>
+                        <input type="text" name="nContent" id="" placeholder="(선택사항)"><br><br>
+
+
+                        <progress id="bar" value="0" max="100"></progress><br><br>
+                        <script>
+                        function barFunc() {
+
+                            var sum = 0;
+
+                            var val1 = document.getElementById("choice1").value;
+                            if(val1 != "=== 1번 선택 ===") sum += 20;
+
+                            var val2 = document.getElementById("choice2").value;
+                            if(val2 != -1) sum += 20;
+
+                            var val3 = document.getElementById("a3_nick").value;
+                            if(val3 != "" && val3 != null) sum += 20;
+
+                            var val4 = document.getElementsByName("nSex");
+                            if(val4[0].checked) sum += 20;
+                            if(val4[1].checked) sum += 20;
+
+
+                            var val5 = document.getElementById("nBirth").value;
+                            if(val5.length > 0) sum += 20;
+
+                            document.getElementById("bar").value = sum;
+                        }
+                        </script>
+
+                        <!-- 취소 / 등록 버튼 -->
+                        <div class="button"><br>
+                            <button type="button" class="btnCancel" name="">취소</button>
+                            <button type="submit" class="btnWrite "name="">등록</button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+
+    </th:block>
+</body>
+</html>

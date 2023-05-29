@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/management/list_Management.css}">
+    <title>list_Management</title>
+</head>
+<body>
+    <div class="main_container">
+        <h1>글 관리</h1>
+        
+            <section>
+                <div class="search">
+                    <select onchange="changeCate('')" id="cate">
+                        <option value="board" selected>자유게시판</option>
+                        <option value="sos">응급실</option>
+                        <option value="newfm">입/분양</option>
+                    </select>
+                    <input type="text" class="search_text" id="search_text">
+                    <button class="search_btn" onclick="search()">검색</button>
+                </div>
+
+                <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                    window.onload = function() {
+                        changeCate("");
+                    }
+
+                    function search() {
+                        var searchText = document.getElementById("search_text").value;
+                        changeCate(searchText);
+                    }
+
+
+                    function changeCate(searchText) {
+
+                        var cate = document.getElementById("cate").value;
+
+                        if(cate == "board") {
+                            document.getElementById("content1").innerHTML = "";
+
+                            /*[# th:each="board : ${boardList}"]*/
+
+                            var bSeq = /*[[${board.bSeq}]]*/;
+                            var bTitle = /*[[${board.bTitle}]]*/;
+                            var uAlias = /*[[${board.uAlias}]]*/;
+                            var bDate = /*[[${board.bDate}]]*/;
+
+                            // 검색어가 없을 때
+                            if(searchText == "") {
+                                var code = '<form method="post" action="/manage/board/board/' + bSeq + '">'
+                                + '<input type="hidden" name="_method" value="delete">'
+                                + '<table><tr><td>'
+                                + '<p id="b_content" name="bContent">' + bTitle + '</p>'
+                                + '<div class="writing_value">'
+                                + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                + '<p id="b_datetime" name="bDatetime">' + bDate +'</p>'
+                                + '</div>'
+                                + '</td><td>'
+                                + '<input type="submit" class="value delete" value="삭제">'
+                                + '</td></tr></table>'
+                                + '</form><hr>'
+
+                                document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                            } else {
+                            // 검색어가 있을 때
+                                if(bTitle.indexOf(searchText) != -1) {
+                                    var code = '<form method="post" action="/manage/board/board/' + bSeq + '">'
+                                    + '<input type="hidden" name="_method" value="delete">'
+                                    + '<table><tr><td>'
+                                    + '<p id="b_content" name="bContent">' + bTitle + '</p>'
+                                    + '<div class="writing_value">'
+                                    + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                    + '<p id="b_datetime" name="bDatetime">' + bDate +'</p>'
+                                    + '</div>'
+                                    + '</td><td>'
+                                    + '<input type="submit" class="value delete" value="삭제">'
+                                    + '</td></tr></table>'
+                                    + '</form><hr>'
+
+                                    document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                                }
+                            }
+                            /*[/]*/
+                        }
+
+                        else if(cate == "sos") {
+                            document.getElementById("content1").innerHTML = "";
+
+                            /*[# th:each="sos : ${sosList}"]*/
+
+                            var sSeq = /*[[${sos.sSeq}]]*/;
+                            var sTitle = /*[[${sos.sTitle}]]*/;
+                            var uAlias = /*[[${sos.uAlias}]]*/;
+                            var sDate = /*[[${sos.sDate}]]*/;
+
+                            // 검색어가 없을 때
+                            if(searchText == "") {
+                                var code = '<form method="post" action="/manage/board/sos/' + sSeq + '">'
+                                + '<input type="hidden" name="_method" value="delete">'
+                                + '<table><tr><td>'
+                                + '<p id="b_content" name="bContent">' + sTitle + '</p>'
+                                + '<div class="writing_value">'
+                                + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                + '<p id="b_datetime" name="bDatetime">' + sDate +'</p>'
+                                + '</div>'
+                                + '</td><td>'
+                                + '<input type="submit" class="value delete" value="삭제">'
+                                + '</td></tr></table>'
+                                + '</form><hr>'
+
+                                document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                            } else {
+                            // 검색어가 있을 때
+                                if(sTitle.indexOf(searchText) != -1) {
+                                    var code = '<form method="post" action="/manage/board/sos/' + sSeq + '">'
+                                    + '<input type="hidden" name="_method" value="delete">'
+                                    + '<table><tr><td>'
+                                    + '<p id="b_content" name="bContent">' + sTitle + '</p>'
+                                    + '<div class="writing_value">'
+                                    + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                    + '<p id="b_datetime" name="bDatetime">' + sDate +'</p>'
+                                    + '</div>'
+                                    + '</td><td>'
+                                    + '<input type="submit" class="value delete" value="삭제">'
+                                    + '</td></tr></table>'
+                                    + '</form><hr>'
+
+                                    document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                                }
+                            }
+
+                            /*[/]*/
+                        }
+
+                        else if(cate == "newfm") {
+                            document.getElementById("content1").innerHTML = "";
+
+                            /*[# th:each="newfm : ${newfmList}"]*/
+
+                            var nSeq = /*[[${newfm.nSeq}]]*/;
+                            var nContent = /*[[${newfm.nContent}]]*/;
+                            var uAlias = /*[[${newfm.uAlias}]]*/;
+                            var nDate = /*[[${newfm.nDate}]]*/;
+
+                            // 검색어가 없을 때
+                            if(searchText == "") {
+                                var code = '<form method="post" action="/manage/board/newfm/' + nSeq + '">'
+                                + '<input type="hidden" name="_method" value="delete">'
+                                + '<table><tr><td>'
+                                + '<p id="b_content" name="bContent">' + nContent + '</p>'
+                                + '<div class="writing_value">'
+                                + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                + '<p id="b_datetime" name="bDatetime">' + nDate +'</p>'
+                                + '</div>'
+                                + '</td><td>'
+                                + '<input type="submit" class="value delete" value="삭제">'
+                                + '</td></tr></table>'
+                                + '</form><hr>'
+
+                                document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                            } else {
+                            // 검색어가 있을 때
+                                if(sTitle.indexOf(searchText) != -1) {
+                                    var code = '<form method="post" action="/manage/board/newfm/' + nSeq + '">'
+                                    + '<input type="hidden" name="_method" value="delete">'
+                                    + '<table><tr><td>'
+                                    + '<p id="b_content" name="bContent">' + nContent + '</p>'
+                                    + '<div class="writing_value">'
+                                    + '<p id="u_seq" name="uSeq">' + uAlias + '</p>'
+                                    + '<p id="b_datetime" name="bDatetime">' + nDate +'</p>'
+                                    + '</div>'
+                                    + '</td><td>'
+                                    + '<input type="submit" class="value delete" value="삭제">'
+                                    + '</td></tr></table>'
+                                    + '</form><hr>'
+
+                                    document.getElementById("content1").innerHTML = document.getElementById("content1").innerHTML + code;
+                                }
+                            }
+
+                            /*[/]*/
+                        }
+
+
+                    }
+                /*]]>*/
+                </script>
+                
+                  
+                
+                <div class="content" id="content1">
+                    <!--
+                    <form action="/manage/board/" th:attrappend="action=${bSeq}">
+                        <input type="hidden" name="bSeq">
+
+                       <p id="b_content" name="bContent"></p>
+
+                       <div class="writing_value"> 
+                            <p id="u_seq" name="uSeq"></p>
+                            <p id="b_datetime" name="bDatetime"></p>
+                       </div>
+
+                       <input type="submit" class="value delete" value="삭제">
+                    </form>
+                    -->
+                </div>
+            </section>
+               
+       
+
+        
+    </div>
+
+    <script src="./static/js/jquery.js"></script>
+</body>
+</html>

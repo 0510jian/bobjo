@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+  <head>
+    <meta charset="utf-8">
+    <title>diaryWriting</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/diary/diaryWriting.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+  </head>
+
+  <body>
+  <th:block layout:fragment="content">
+
+    <div class="main_container">
+      <!--로고 사진 넣기-->
+      <header>
+        <th:block>
+          <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+        </th:block>
+    </header>
+
+      <section>
+        <!-- 날씨 선택 -->
+        <div class="category" id="d_weather1">
+          <input type="radio" name="categoryChoice" id="0" value="0" onclick="choose(this.value)" checked><label for="0">☀️맑음☀️</label>
+          <input type="radio" name="categoryChoice" id="1" value="1" onclick="choose(this.value)"><label for="1">🌥️흐림🌥️</label>
+          <input type="radio" name="categoryChoice" id="2" value="2" onclick="choose(this.value)"><label for="2">☔비☔</label>
+          <input type="radio" name="categoryChoice" id="3" value="3" onclick="choose(this.value)"><label for="3">❄️눈❄️</label>
+        </div>
+
+        <div class="content">
+          <form class="" action="/diary/write" method="post" enctype="multipart/form-data">
+            <!-- 필요 태그(보이지 않음) -->
+            <input type="hidden" id="dWeather" name="dWeather" value="0">
+            <input type="hidden" id="a3Seq" name="a3Seq" value="-1">
+
+            <!-- 제목 -->
+            <input type="text" class="input" id="d_title1" name="dTitle" value="" placeholder="제목을 입력해주세요." required><br><br>
+
+            <!-- 날짜 -->
+            <!-- 사진첨부 -->
+            <table>
+              <tr>
+                <td><input type="date" class="input" id="d_date1" name="dDate" value="" required></td>
+                <td><input type="file" class="input" id="d_pic1" name="uploadfile" accept="image/png, image/jpeg" value="사진"></td>
+              </tr>
+            </table>
+
+            <br>
+
+            <!-- 내동물 선택 -->
+            <select name="animal3" class="input" onchange="changeSelect(this)">
+              <option value="-1">공통</option>
+              <th:block th:if="${#lists.size(animal3List)} > 0" th:each="animal3:${animal3List}">
+                <option th:value="${animal3.a3Seq}" th:text="${animal3.a3Nick}"></option>
+              </th:block>
+            </select>
+            <br><br>
+
+            <!-- 내용 -->
+            <textarea class="textarea" id="d_content1" name="dContent" placeholder="내용을 입력해주세요." required></textarea><br><br>
+
+            <!-- 취소 / 등록 (취소버튼 누르면 글 목록 페이지로 이동 / 등록버튼 누르면 게시글 작성 ) -->
+            <div class="button"><br>
+              <a href="/diary"><button type="button" class="btnCancel" name="">취소</button></a>
+              <button type="submit" class="btnWrite "name="">등록</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </th:block>
+  </body>
+</html>
+<script>
+  window.onload = function() {
+    document.getElementById('d_date1').valueAsDate = new Date();
+  }
+
+  function choose(number) {
+    // bCate value 넣어주기
+    document.getElementById("dWeather").value = number;
+  }
+
+
+  // 내동물 선택
+  function changeSelect(select) {
+    document.getElementById("a3Seq").value = select.value;
+   }
+</script>

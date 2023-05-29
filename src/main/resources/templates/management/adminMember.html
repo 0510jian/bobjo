@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>member_Management</title>
+    <link rel="stylesheet" th:href="@{/static/css/management/member_Management.css}">
+</head>
+<body>
+<div class="main_container">
+    <h1>회원 관리</h1>
+
+
+    <section>
+        <!-- 검색 드롭다운 -->
+        <div class="dropdown">
+            <select id="cate">
+                <option value="nickname" selected>닉네임</option>
+                <option value="id">아이디</option>
+            </select>
+            <input type="text" class="text" id="search_text">
+            <div class="search btn" onclick="search()">검색</div>
+        </div>
+
+        <!-- 검색결과 나오는 div -->
+        <div class="member_list" id="result">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                function search() {
+                    var searchText = document.getElementById("search_text").value;
+                    var cate = document.getElementById("cate").value;
+
+                    document.getElementById("result").innerHTML = "";
+
+                    if(cate == "nickname") {
+                        /*[# th:each="user : ${userList}"]*/
+
+                        var uSeq = /*[[${user.uSeq}]]*/;
+                        var uAlias = /*[[${user.uAlias}]]*/;
+
+                        // 검색어가 있을 때
+                        if(uAlias.indexOf(searchText) != -1) {
+                            var code = '<form class="member" method="post" action="/manage/member/' + uSeq + '">'
+                            + '<input type="hidden" name="_method" value="delete">'
+                            + '<div class="name">' + uAlias + '</div>'
+                            + '<input type="submit" class="secession btn" value="탈퇴">'
+                            + '</form>'
+
+                            document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + code;
+                        }
+                        /*[/]*/
+                    } else if(cate == "id") {
+                        /*[# th:each="user : ${userList}"]*/
+
+                        var uSeq = /*[[${user.uSeq}]]*/;
+                        var uId = /*[[${user.uId}]]*/;
+
+                        // 검색어가 있을 때
+                        if(uId.indexOf(searchText) != -1) {
+                            var code = '<form class="member" method="post" action="/manage/member/' + uSeq + '">'
+                            + '<input type="hidden" name="_method" value="delete">'
+                            + '<div class="name">' + uId + '</div>'
+                            + '<input type="submit" class="secession btn" value="탈퇴">'
+                            + '</form>'
+
+                            document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + code;
+                        }
+                        /*[/]*/
+                    }
+                }
+                /*]]>*/
+            </script>
+
+            <!--
+            <form class="member" method="post" action="/manage/member/uSeq">
+
+                <div class="name" name="uAlias">nickname</div>
+                <input type="submit" class="secession btn" value="탈퇴">
+            </form>
+            -->
+
+        </div>
+    </section>
+</body>
+</html>

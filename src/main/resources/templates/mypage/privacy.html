@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>privacy</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/mypage/mypage2.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+    <div class="main_container">
+        <!-- header -->
+        <header class="menu">
+            <th:block>
+                <img src="/static/img/out.png" id="out" style="height:20px; width:20px; position: absolute; right: 30px; top:30px;" th:onclick="|location.href='@{/logout}'|">
+                <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+
+            </th:block>
+            <div><a href="/mypage/privacy" style="color:#f07635; font-size:12pt;">개인정보수정</a></div>
+            <div><a href="/mypage/myboard" style="font-size:12pt;">작성글관리</a></div>
+            <div><a href="/mypage/walkmate" style="font-size:12pt;">메이트관리</a></div>
+            <div><a href="/mypage/asking" style="font-size:12pt;">문의하기</a></div>
+        </header>
+
+
+        <section>
+            <form name="modifyPrivacy"  action="/mypage/privacy" method="post">
+
+                <!-- 아이디 입력-->
+                <div class="box id">
+                    <div class="middle" style="padding-top:5px;">아이디</div>
+                    <div><input type="text" class="input color" name="uId" value="" readonly th:value="${user.uId}"></div>
+                </div>
+
+                <!-- 비밀번호 입력-->
+                <div class="box">
+                    <div style="padding-top:5px;">비밀번호</div>
+                    <div>
+                        <input type="password" class="input" name="uPw" id="uPw" value="" placeholder="영문, 숫자 2가지 이상 ">
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div></div>
+                    <div>
+                        <input type="password" class="input" id="uPwOK" name="uPwOK" value="" placeholder="비밀번호를 다시 입력해주세요" required><br><br>
+                        <input type="button" class="search" onclick="confirm()" id="btnConfirm" value="확인">
+                    </div>
+                </div>
+
+                <!-- 비밀번호 확인하는 자바스크립트 -->
+                <script>
+                    var pw1 = document.getElementById("uPw");
+                    var pw2 = document.getElementById("uPwOK");
+
+                    function confirm() {
+                      if(pw1.value != pw2.value || pw1.value == "" || pw1.value == "") {
+                        alert("비밀번호가 일치하지 않습니다.");
+                      }
+                      else {
+                        pw2.setCustomValidity("");
+                        alert("비밀번호가 일치합니다.");
+                      }
+                    }
+                  </script>
+
+                <div class="box">
+                    <div style="padding-top:5px;">이름</div>
+                    <div>
+                        <input type="text" class="input" name="uName" value="" th:value="${user.uName}">
+                    </div>
+                </div>
+                <!-- 닉네임 입력 -->
+                <div class="box_nickname">
+                    <div style="padding-top:5px;">닉네임</div>
+                    <div>
+                        <input type="text"  class="input color"name="uAlias" value=""   readonly th:value="${user.uAlias}">
+                    </div>
+                </div>
+
+                <div class="unchange">+닉네임은 나중에 변경불가합니다</div>
+
+                <!-- 생년월일 입력 -->
+                <div class="box">
+                    <div style="padding-top:5px;">생년월일</div>
+                    <div>
+                        <input type="date"  class="input" name="uBirth" value="" placeholder="ex) bobjo@gmail.com" required th:value="${user.uBirth}">
+                    </div>
+                </div>
+
+
+                <!-- 주소 입력 -->
+                <input type="hidden" id="addr" name="uAddr" th:value="${user.uAddr}">
+
+                <div class="box_address">
+                    <div style="padding-top:5px;">주소</div>
+                    <div class="addressbox">
+                        <input type="text"  class="address1" id="sample6_postcode">
+                        <input type="button" class="search" onclick="sample6_execDaumPostcode()" value="주소 찾기">
+                    </div>
+                </div>
+
+                <!-- 주소 검색으로 나타나는 도로명 주소 or 지번 주소 -->
+                <div class="add2">
+                    <input type="text" class="input" id="sample6_address" placeholder="주소">
+                </div>
+
+                <div class="add3">
+                    <input type="text" class="input" id="sample6_detailAddress" placeholder="상세주소">
+                </div>
+
+
+
+
+                <!-- 이메일 입력 -->
+                <div class="box">
+                    <div style="padding-top:5px;">이메일</div>
+                    <div>
+                        <input type="text" class="input" name="uMail" value="" placeholder="ex) bobjo@gmail.com" th:value="${user.uMail}">
+                    </div>
+                </div>
+
+                <!-- 전화번호 입력 -->
+                <div class="box">
+                    <div style="padding-top:5px;">전화번호</div>
+                    <div>
+                        <input type="tel" class="input" name="uTel" value=""  th:value="${user.uTel}">
+                    </div>
+                </div>
+
+                <!-- 회원가입 버튼 -->
+
+                <input type="submit" class="submit_btn" value="변경" onclick="updateUser()">
+
+            </form>
+        </section>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+      function sample6_execDaumPostcode() {
+          new daum.Postcode({
+              oncomplete: function(data) {
+                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                  var addr = ''; // 주소 변수
+                  var extraAddr = ''; // 참고항목 변수
+
+                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                      addr = data.roadAddress;
+                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                      addr = data.jibunAddress;
+                  }
+
+                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                  if(data.userSelectedType === 'R'){
+                      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                          extraAddr += data.bname;
+                      }
+                      // 건물명이 있고, 공동주택일 경우 추가한다.
+                      if(data.buildingName !== '' && data.apartment === 'Y'){
+                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                      }
+                  }
+
+                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                  document.getElementById('sample6_postcode').value = data.zonecode;
+                  document.getElementById("sample6_address").value = addr;
+                  // 커서를 상세주소 필드로 이동한다.
+                  document.getElementById("sample6_detailAddress").focus();
+              }
+          }).open();
+      }
+  </script>
+
+    <script>
+
+    window.onload = function() {
+        var addr = document.getElementById("addr").value;
+
+        document.getElementById("sample6_postcode").value = addr.slice(0, 5);
+
+        addr = addr.slice(5).split(",");
+
+        document.getElementById("sample6_address").value = addr[0];
+        document.getElementById("sample6_detailAddress").value = addr[1];
+
+    }
+
+    function updateUser() {
+
+        var addr1 = document.getElementById("sample6_postcode").value;
+        var addr2 = document.getElementById("sample6_address").value;
+        var addr3 = document.getElementById("sample6_detailAddress").value;
+
+        document.getElementById("addr").value = addr1 + addr2 + "," + addr3;
+    }
+
+</script>
+
+
+
+
+
+</th:block>
+<th:block layout:fragment="naviFragment">
+    <navigator>
+        <!-- 알림창 보이게 하는 버튼 -->
+        <button id="naviO" onclick="toBig()" style="display: block;box-shadow: 0 0 5px gray;"><img src="/static/img/walkmate.png" style="width:40px; margin-top:7px;"></button>
+        <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+        <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+        <div class="float_container" id="float_container" style="display:none;">
+
+
+            <div class="naviAlert">
+                <th:block class="walkmateList" th:unless="${walkmateList == null}">
+                    <th:block th:if="${#lists.size(walkmateList)} > 0" th:each="walkmate:${walkmateList}">
+                        <h3>산책메이트 신청이 왔어요!</h3>
+
+                        <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+                        <sub>총 <span th:text="${#lists.size(walkmateList)}"></span>개</sub>
+
+
+                        <!-- 신청 화면 반복 -->
+                        <th:block th:unless="${walkmate.proposeAlias == null or walkmate.proposeAlias == ''}">
+                            <div class="alertSet">
+                                <div class="naviInfo">
+                                    <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                                    <p id="naviA3_nick" th:text="${walkmate.proposeAlias}"><b>닉네임</b></p>
+                                    <p id="naviCont">
+                                        <span th:text="${walkmate.a3Nick}"></span>(<span th:text="${walkmate.a2Species}"></span>)<br>
+                                        <span id="naviMessage" th:text="${walkmate.wmContent}">메시지 로딩 중</span>
+
+                                    </p>
+                                    <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                                         메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                                </div>
+                            </div>
+
+                            <!-- 거절, 수락 버튼 -->
+                            <table class="naviButton" style="width:100%;">
+                                <tr style="width:100%;">
+                                    <td>
+                                        <form action="/walkmate/refuse/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="submit" class="btnRefuse" value="거절">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/walkmate/permit/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="put">
+                                            <input type="submit" class="btnPermit" value="수락">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if="${#lists.size(walkmateList)} == 0">받은 산책메이트 신청이 없습니다</th:block>
+                </th:block>
+            </div>
+
+            <!-- 알림창 안 보이게 하는 버튼 -->
+            <button id="naviX" onclick="toSmall()">x</button>
+            <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+        </div>
+    </navigator>
+</th:block>
+
+</body>
+</html>

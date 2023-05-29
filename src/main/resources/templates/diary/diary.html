@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>diary</title>
+
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/diary/diary2.css?after}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css?after}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi2.css}">
+    <!--
+    팝업하나의 링크는 d_seq1
+    메인화면에서 사진 d_thumb
+    메인화면에서 제목 d_title
+    메인화면에서 본문 d_content
+    본문사진은 d_pic으로 임시설정
+    본문제목은 temtitle
+    본문내용은 temcontents -->
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="main_container">
+        <header>
+            <th:block>
+                <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+            </th:block>
+            <div><a href="/diary" style="color: #f07635;">성장일기</a></div>
+            <div><a href="/diary/schedule">일정</a></div>
+            <div><a href="/diary/friend">친구</a></div>
+        </header>
+
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            function leftFunction() {
+                document.getElementById("animal3List").scrollLeft += 100;
+            }
+
+            function rightFunction() {
+                document.getElementById("animal3List").scrollLeft -= 100;
+            }
+
+            window.onload = function() {
+                animalBtnClick(-1);
+            }
+
+
+            function resetDiary() {
+                document.getElementById("diaryBlocks").innerHTML = "";
+            }
+
+            function animalBtnClick(inputA3Seq) {
+                resetDiary();
+
+                /*[# th:each="diary : ${diaryList}"]*/
+                    var a3Seq = /*[[${diary.a3Seq}]]*/;
+                    var dSeq = /*[[${diary.dSeq}]]*/;
+                    var dThumb = /*[[${diary.dThumb}]]*/;
+                    var dTitle = /*[[${diary.dTitle}]]*/;
+                    var dContent = /*[[${diary.dContent}]]*/;
+                    var dDate = /*[[${diary.dDate}]]*/;
+                    var dWeather = /*[[${diary.dWeather}]]*/;
+
+
+
+                    if(dWeather == 0) {
+                        dWeather = "☀️맑음☀️";
+                    } else if(dWeather == 1) {
+                        dWeather = "🌥️흐림🌥️";
+                    } else if(dWeather == 2) {
+                        dWeather = "🌈비☔";
+                    } else {
+                        dWeather = "☃️눈❄️";
+                    }
+
+                    if(dThumb == null) {
+                        dThumb = "/static/img/animal.png";
+                    }
+
+                    if (a3Seq == inputA3Seq || inputA3Seq == -1) {
+                        var code = '<a href="#' + dSeq + '" class="btn">'
+                        + '<img src="' + dThumb + '" id="d_thumb" alt="">'
+                        + '<div id="d_title" name="dTitle" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">' + dTitle + '</div>'
+                        + '<div id="d_content" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">' + dContent + '</div>'
+                        + '</a>'
+                        + '<div class="popup" id="' + dSeq + '">'
+                        + '<div style="width:100%;">'
+                        + '<div style="width:30px; height:30px; margin: auto; background: #3C6255; border-radius:20px; text-align: center;">'
+                        + '<a href="#a" style="vertical-align: middle; line-height: 30px; color: white;">X</a>'
+                        + '<br></div><br></div><p id="d_date">' + dDate + '   ' + dWeather + '</p>'
+                        + '<div style="width:100%; text-align: center;">'
+                        + '<br><img src="' + dThumb + '" id="d_pic" alt=""><br></div><p id="temtitle">' + dTitle + '</p>'
+                        + '<p id="temcontents">' + dContent + '</p>'
+                        + '<form action="/diary/' + dSeq + '" method="post">'
+                        + '<input type="hidden" name="_method" value="delete">'
+                        + '<input type="submit" class="btnDelete" value="삭제"></form>'
+                        + '</div><div class="dim"></div>';
+
+                        document.getElementById("diaryBlocks").innerHTML = document.getElementById("diaryBlocks").innerHTML + code;
+                    }
+                /*[/]*/
+            }
+            /*]]>*/
+        </script>
+
+        <a href="/diary/write" id="plusButton" style="position: fixed; bottom: 90px; right: 50%; transform: translateX(220px);">
+            <img src="/static/img/btn.png"></a>
+
+        <section>
+            <!-- 중간 반려동물 버튼 -->
+            <div class="animal3">
+                <button class="moveHorizontal" onclick="rightFunction()"><</button>
+                <div class="animal3List" id="animal3List">
+                    <th:block th:unless="${animal3List == null}">
+                        <input type="hidden" id="animal3Cate" name="animal3Cate" value="-1">
+                        <button type="button" class="clickButton" onclick="animalBtnClick(-1)">공통</button>
+                        <th:block th:if="${#lists.size(animal3List)} > 0" th:each="animal3:${animal3List}">
+                            <button type="button" class="clickButton" th:text="${animal3.a3Nick}" th:value="${animal3.a3Seq}" onclick="animalBtnClick(this.value)"></button>
+                        </th:block>
+                    </th:block>
+                </div>
+                <button class="moveHorizontal" onclick="leftFunction()">></button>
+            </div><br>
+
+            <div id="diaryBlocks">
+                <!--
+                <th:block th:unless="${diaryList == null}">
+                    <th:block th:if="${#lists.size(diaryList)} > 0" th:each="diary:${diaryList}" class="container">
+                        <a href="#" th:attrappend="href=${diary.dSeq}" class="btn">
+                            <img th:src="${diary.dThumb}" id="d_thumb" alt="">
+                            <div id="d_title" name="dTitle" th:text="${diary.dTitle}" style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis' >제목 </div>
+                            <div id="d_content" th:text="${diary.dContent}" style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis'>내용</div>
+                        </a>
+
+                        <div class="popup" th:id="${diary.dSeq}">
+                            <div style="width: 100%;">
+                                <div style="width: 30px; height: 30px; margin: auto; background: darkgreen; border-radius:20px; text-align: center;">
+                                    <a href="#a" style="vertical-align: middle; line-height: 30px; color:white;">X</a><br>
+                                </div>
+                                <br>
+                            </div>
+
+                            <p id="d_date" th:text="${diary.dDate}">날짜</p>
+                            <div style="width:100%; text-align: center;">
+                                <img th:unless="${diary.dThumb == null}" th:src="${diary.dThumb}" id="d_pic" alt=""><br>
+                            </div>
+                            <p id="temtitle" th:text="${diary.dTitle}">🌨️제목</p>
+
+                            <p id="temcontents" th:text="${diary.dContent}">내용</p>
+                            <form action="/community/freeboard/" th:attrappend="action=${board.bSeq}" method="post">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="submit" class="btnDelete" value="삭제" th:if="${board.uSeq == user.uSeq}"/>
+                            </form>
+                        </div>
+                        <div class="dim"></div>
+                    </th:block>
+                </th:block>
+                -->
+
+            </div>
+
+        </section>
+
+
+    </div>
+</th:block>
+
+<th:block layout:fragment="naviFragment">
+    <navigator>
+        <!-- 알림창 보이게 하는 버튼 -->
+        <button id="naviO" onclick="toBig()" style="display: block;box-shadow: 0 0 5px gray;"><img src="/static/img/walkmate.png" style="width:40px; margin-top:7px;"></button>
+        <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+        <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+        <div class="float_container" id="float_container" style="display:none;">
+
+
+            <div class="naviAlert">
+                <th:block class="walkmateList" th:unless="${walkmateList == null}">
+                    <th:block th:if="${#lists.size(walkmateList)} > 0" th:each="walkmate:${walkmateList}">
+                        <h3>산책메이트 신청이 왔어요!</h3>
+
+                        <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+                        <sub>총 <span th:text="${#lists.size(walkmateList)}"></span>개</sub>
+
+
+                        <!-- 신청 화면 반복 -->
+                        <th:block th:unless="${walkmate.proposeAlias == null or walkmate.proposeAlias == ''}">
+                            <div class="alertSet">
+                                <div class="naviInfo">
+                                    <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                                    <p id="naviA3_nick" th:text="${walkmate.proposeAlias}"><b>닉네임</b></p>
+                                    <p id="naviCont">
+                                        <span th:text="${walkmate.a3Nick}"></span>(<span th:text="${walkmate.a2Species}"></span>)<br>
+                                        <span id="naviMessage" th:text="${walkmate.wmContent}">메시지 로딩 중</span>
+
+                                    </p>
+                                    <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                                         메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                                </div>
+                            </div>
+
+                            <!-- 거절, 수락 버튼 -->
+                            <table class="naviButton" style="width:100%;">
+                                <tr style="width:100%;">
+                                    <td>
+                                        <form action="/walkmate/refuse/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="submit" class="btnRefuse" value="거절">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/walkmate/permit/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="put">
+                                            <input type="submit" class="btnPermit" value="수락">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if="${#lists.size(walkmateList)} == 0">받은 산책메이트 신청이 없습니다</th:block>
+                </th:block>
+            </div>
+
+            <!-- 알림창 안 보이게 하는 버튼 -->
+            <button id="naviX" onclick="toSmall()">x</button>
+            <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+        </div>
+    </navigator>
+</th:block>
+
+</body>
+</html>

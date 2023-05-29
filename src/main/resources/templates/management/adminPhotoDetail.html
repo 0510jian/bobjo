@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/management/photo_Management.css}">
+    <!-- <link rel="stylesheet" href="./css/photo_Management.css"> -->
+
+    <title>photo_Management</title>
+</head>
+<body>
+    <div class="main_container">
+           
+        <h1>사진 인증</h1>
+
+        <script th:inline="javascript">
+          /*<![CDATA[*/
+
+          window.onload = function() {
+            var img1 = /*[[${certification.ceImage1}]]*/;
+            var img2 = /*[[${certification.ceImage2}]]*/;
+            if (img1 != null) {
+                document.getElementById("img1").src = '/' + /*[[${certification.ceImage1}]]*/;
+            }
+            if (img2 != null) {
+                document.getElementById("img2").src = '/' + /*[[${certification.ceImage2}]]*/;
+            }
+
+
+
+
+            var a1Supply1 = /*[[${animal1.a1Supply1}]]*/;
+
+            var a1Supply1List = [];
+
+            if(a1Supply1.indexOf("/") == -1) {
+              a1Supply1List = a1Supply1List.push(a1Supply2);
+            } else {
+              a1Supply1List = a1Supply1.split("/");
+            }
+
+            var code = '';
+            for(var i=0; i<a1Supply1List.length; i++) {
+              code = code + '<input type="checkbox" style="width:15px; margin-right: 10px;">' + a1Supply1List[i] + '<br>'
+            }
+
+            document.getElementById("c_materialName").innerHTML = code;
+
+
+
+
+
+
+            var a1Supply2 = /*[[${animal1.a1Supply2}]]*/;
+
+            var a1Supply2List = [];
+
+            if(a1Supply2.indexOf("/") == -1) {
+              a1Supply2List = a1Supply2List.push(a1Supply2);
+            } else {
+              a1Supply2List = a1Supply2.split("/");
+            }
+
+            var code = '';
+            for(var i=0; i<a1Supply2List.length; i++) {
+              code = code + '<input type="checkbox" style="width:15px; margin-right: 10px;">' + a1Supply2List[i] + '<br>'
+            }
+
+            document.getElementById("c_materialName2").innerHTML = code;
+          }
+
+          /*]]>*/
+        </script>
+    
+
+            
+        <div class="photo_list">
+            <div>
+                <!-- 꼭 필요해요 -->
+                <div>*꼭! 필요해요</div>
+                <div class="step">
+
+                    <div class="material">
+                        <table>
+                            <tr>
+                                <td style="width:200px; height: 200px;">
+                                    <img src="/static/img/photo-camera.png" id="img1" class="c_materialPhoto" name="c_materialPhoto"style="border-radius:20px; width:200px; height: 200px;">
+                                </td>
+                                <td style="width:250px; height:160px; padding: 20px;">
+                                    <div class="c_materialName" name="c_materialName" id="c_materialName" style="height:160px;">준비물</div>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+
+                <!-- 필수는 아니지만 있으면 더 좋아요 -->
+                <div>*필수는 아니지만 있으면 더 좋아요!</div>
+                <div class="step">
+
+                    <div class="material">
+                        <table>
+                            <tr>
+                                <td style="width:200px; height: 200px;">
+                                    <img src="/static/img/photo-camera.png" id="img2" class="c_materialPhoto" name="c_materialPhoto" style="border-radius:20px; width:200px; height: 200px;">
+                                </td>
+                                <td style="width:250px; height:160px; padding: 20px;">
+                                    <div class="c_materialName" name="c_materialName" id="c_materialName2" style="height:160px;">준비물</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+
+    
+            <!-- 승인/거절 버튼-->
+            <div class="button_list">
+                <!-- 승인되었습니다 메시지 출력 & 뒤로가기  -->
+                <form action="/manage/certification/" th:attrappend="action=${certification.ceSeq}" method="post">
+                    <input type="hidden" name="a1Seq" th:value="${certification.a1Seq}">
+                    <input type="hidden" name="uSeq" th:value="${certification.uSeq}">
+                    <input type="submit" class="btnWrite" value="승인">
+                    <input type="hidden" name="_method" value="put">
+                    <br>
+                </form>
+
+
+              <!-- 거절되었습니다 메시지 출력 & 뒤로가기 -->
+                <form action="/manage/certification/" th:attrappend="action=${certification.ceSeq}" method="post">
+                    <input type="submit" class="btnCancel" value="거절">
+                    <input type="hidden" name="_method" value="delete">
+                    <br>
+                </form>
+
+
+              <!-- 뒤로가기 -->
+              <button class="back"><a href="/manage/certification">뒤로가기</a>
+              </button>
+            </div>
+        
+    
+        </div>
+    </div>
+
+   
+</body>
+</html>

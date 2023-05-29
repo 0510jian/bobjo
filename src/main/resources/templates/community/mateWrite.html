@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+    <head>
+        <meta charset="UTF-8">
+        <title>mateWrite</title>
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+        <link rel="stylesheet" th:href="@{/static/css/community/mateWrite.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=82d53b34ae33c2d246749cbfaaeeb3e6&libraries=services"></script>
+        <script src="/static/ckeditor/ckeditor.js"></script>
+    </head>
+<body>
+<th:block layout:fragment="content">
+
+    <div class="main_container">
+        <header>
+            <th:block>
+                <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+            </th:block>
+        </header>
+
+
+        <section>
+            <form action="/community/walkmate/write" method="post">
+                <!-- (1) 장소 선택 -->
+                <div class="text">1. 장소를 선택해주세요.</div>
+                <div id="map"></div>
+                <div id="clickLatlng"></div>
+
+                <!-- 위도 경도 hidden -->
+                <input type="hidden" name="wLatlng" id="wLatlng">
+
+
+                <!-- (2) 시간대 선택 -->
+                <!-- th: 선택한 시간 값을 "시간 값"에 넘겨서 저장해줌  --><br><br>
+                <input type="hidden" name="wTime" id="wTime" value="0">
+                <div class="text">2. 산책을 희망하는 시간대를 선택해주세요.</div><br>
+                <div class="flex-container">
+
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="0"><input type="radio" name="time" id="0" value="0" checked onclick="changeTime(this)"><div class="selectTime">◷</div></input>0 ~ 6</label>
+                            </td>
+                            <td>
+                                <label for="1"><input type="radio" name="time" id="1" value="1" onclick="changeTime(this)"><div class="selectTime">◶</div></input>6 ~ 12</label>
+                            </td>
+                            <td>
+                                <label for="2"><input type="radio" name="time" id="2" value="2" onclick="changeTime(this)"><div class="selectTime">◵</div></input>12 ~ 18</label>
+                            </td>
+                            <td>
+                                <label for="3"><input type="radio" name="time" id="3" value="3" onclick="changeTime(this)"><div class="selectTime">◴</div></input>18 ~ 24</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br>
+
+                <!-- (3) 나의 반려동물 정보 동의  -->
+                <div class="text">3. 정보를 제공할 반려동물을 선택해주세요.</div>
+                <input type="hidden" name="a3Seq" id="a3Seq" value="1">
+                <!-- th: 나의 동물 정보에서 반려견 이름 값을 "a3_seq" 수만큼 불러옴 -->
+                <select name="animal3" class="input" onchange="changeSelect(this)">
+                    <th:block th:if="${#lists.size(animal3List)} > 0" th:each="animal3:${animal3List}">
+                        <option th:value="${animal3.a3Seq}" th:text="${animal3.a3Nick}"></option>
+                    </th:block>
+                </select>
+                <br><br><br>
+
+                <!-- (4) 기타 메시지 입력 -->
+                <div class="text">4. 기타 메시지를 입력해주세요.</div>
+                <textarea id="message" name="wContent" class="input" placeholder="간단한 메시지를 입력해주세요."></textarea><br><br>
+
+                <!-- 취소 / 등록 버튼 -->
+                <div class="button"><br>
+                    <a href="/community/walkmate"><button type="button" class="btnReset" name="">취소</button></a>
+                    <button type="submit" class="btnSubmit" name="">등록</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+</th:block>
+</body>
+</html>
+
+<script>
+
+    CKEDITOR.replace("message");
+
+    // 내동물 선택
+      function changeSelect(select) {
+        document.getElementById("a3Seq").value = select.value;
+      }
+
+    // 시간대 선택
+    function changeTime(v) {
+        document.getElementById("wTime").value = v.value;
+    }
+
+    window.onload = function() {
+        <!-- geolocation 작동 확인 -->
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+
+                <!-- 현재 위치 좌표값 get -->
+                var latitude = pos.coords.latitude;
+                var longitude = pos.coords.longitude;
+
+                <!-- 초기값을 현재 위치로 지정 -->
+                document.getElementById("wLatlng").value = latitude + "/" + longitude;
+
+                <!-- 지도를 현재 위치로 세팅 후 출력 -->
+                var mapContainer = document.getElementById('map');
+                var mapOption = {
+                    center: new kakao.maps.LatLng(latitude, longitude),
+                    level: 5
+                };
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                // 지도를 클릭한 위치에 표출할 마커입니다
+                var marker = new kakao.maps.Marker({
+                // 지도 중심좌표에 마커를 생성합니다
+                position: map.getCenter()
+                });
+
+                // 지도에 마커를 표시합니다
+                marker.setMap(map);
+
+                // 지도에 클릭 이벤트를 등록합니다
+                // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+                // 클릭한 위도, 경도 정보를 가져옵니다
+                var latlng = mouseEvent.latLng;
+
+                // 마커 위치를 클릭한 위치로 옮깁니다
+                marker.setPosition(latlng);
+
+                var myLat = latlng.getLat();
+                var myLng = latlng.getLng();
+
+                document.getElementById("wLatlng").value = myLat + "/" + myLng;
+
+                });
+                // hidden 속성 사용해서 id="p_seq" 으로 DB 넘겨주기
+                // 스크립트에서 받아온 해당 위치의 이름, 위도, 경도 값을 "p_name", "p_loc"에 저장
+            });
+        } else {
+            alert("geolocation을 지원하지 않습니다.");
+        }
+    }
+</script>

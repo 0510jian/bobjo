@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/management/quiz_Management.css}">
+
+    <title>quiz_Management</title>
+</head>
+<body>
+
+    <div class="main_container">
+         
+        <h1>퀴즈 등록</h1>
+
+        <!-- 퀴즈등록 -->
+        
+        <form name="certification" action="/manage/quiz" method="post">
+
+            <table>
+                <tr>
+                    <td>
+                        <!-- 반려동물 선택 드롭다운 -->
+                        <div class="choice">
+                            반려동물 선택
+                            <input type="hidden" name="a1Seq" id="a1Seq" value="1">
+                            <select class="Species" onchange="categoryChange(this.value)" >
+                                <th:block th:if="${#lists.size(animal1List)} > 0" th:each="animal1:${animal1List}" class="container">
+                                    <option name="category" th:value="${animal1.a1Seq}" th:text="${animal1.a1Species}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <script>
+                            function categoryChange(e){
+                                document.getElementById("a1Seq").value = e;
+
+                                hideOption();
+
+                                var a = document.getElementsByClassName(e);
+                                for(var i=0; i<a.length; i++) {
+                                    document.getElementsByClassName(e)[i].style.display = 'block';
+                                }
+                            }
+                        </script>
+                    </td>
+                    <td style="rowspan:2;">
+                        <input type="submit" class="search_btn" value="등록">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- o,x 드룹다운 -->
+                        <div class="choice2">
+                            정답 선택
+                            <input type="hidden" name="qAnswer" id="qAnswer" value="1">
+                            <select class="Ans" onchange="answerChange(this)">
+                                <option name="cAns1" value="1">O</option>
+                                <option name="cAns1" value="0">X</option>
+                            </select>
+                        </div>
+                        <script>
+                            function answerChange(e){
+                                document.getElementById("qAnswer").value = e.value;
+                            }
+                        </script>
+                    </td>
+                </tr>
+            </table>
+
+            
+            <input type="text" class="input_text"placeholder="퀴즈입력" name="qQuiz">
+            <p>#목록에서 퀴즈를 클릭하면 해당 퀴즈가 삭제됩니다.</p>
+        </form>
+
+        <!-- 퀴즈 목록 -->
+        <div class="quiz_list">
+            <th:block th:unless="${quizList == null}">
+                <th:block th:if="${#lists.size(quizList)} > 0" th:each="quiz:${quizList}">
+                    <a href="/manage/quiz/" th:class="${quiz.a1Seq}" th:attrappend="href=${quiz.qSeq}">
+                        <div id="list" th:text="${quiz.qQuiz}" th:value="${quiz.qSeq}" th:class="${quiz.a1Seq}"></div>
+                        <br>
+                    </a>
+                </th:block>
+            </th:block>
+
+        </div>
+    </div>
+
+    <script src="./static/js/jquery.js"></script>
+
+    <script>
+
+        window.onload = function() {
+            hideOption();
+            categoryChange(1);
+        }
+
+        function hideOption() {
+            var a1 = document.getElementsByClassName("1");
+            for(var i=0; i<a1.length; i++) {
+                document.getElementsByClassName("1")[i].style.display = 'none';
+            }
+            var a2 = document.getElementsByClassName("2");
+            for(var i=0; i<a2.length; i++) {
+                document.getElementsByClassName("2")[i].style.display = 'none';
+            }
+            var a3 = document.getElementsByClassName("3");
+            for(var i=0; i<a3.length; i++) {
+                document.getElementsByClassName("3")[i].style.display = 'none';
+            }
+            var a4 = document.getElementsByClassName("4");
+            for(var i=0; i<a4.length; i++) {
+                document.getElementsByClassName("4")[i].style.display = 'none';
+            }
+            var a5 = document.getElementsByClassName("5");
+            for(var i=0; i<a5.length; i++) {
+                document.getElementsByClassName("5")[i].style.display = 'none';
+            }
+        }
+    </script>
+    
+</body>
+</html>

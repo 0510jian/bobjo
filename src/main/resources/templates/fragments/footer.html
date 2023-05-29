@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/static/css/footer.css}">
+</head>
+<th:block th:fragment="footerFragment">
+    <!-- 하단메뉴 -->
+    <footer>
+        <div id="footer1">
+            <a href="/diary" style="color: white;">
+                <i class="xi-home"></i>
+                <P>다이어리</P>
+            </a>
+        </div>
+        <div id="footer2">
+            <a href="/community/freeboard" style="color: white;">
+                <i class="xi-forum"></i>
+                <p>커뮤니티</p>
+            </a>
+        </div>
+        <div id="footer3">
+            <a href="/adopt/out" style="color: white;">
+                <i class="xi-heart"></i>
+                <p>분양</p>
+            </a>
+        </div>
+        <div id="footer4">
+            <a href="/mypage/privacy" style="color: white;">
+                <i class="xi-profile"></i>
+                <p>마이페이지</p>
+            </a>
+        </div>
+    </footer>
+</th:block>
+</html>

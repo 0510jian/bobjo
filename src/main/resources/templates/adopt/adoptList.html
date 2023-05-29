@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>adoptList</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/adopt/adoptList3.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi2.css}">
+</head>
+
+<body>
+<th:block layout:fragment="content">
+
+    <!-- 상단 메뉴 -->
+    <div class="main_container">
+        <header class="menu">
+            <th:block>
+                <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+            </th:block>
+            <div><a href="/adopt/in">입양</a></div>
+            <div><a href="/adopt/out" style="color: #f07635;">분양</a></div>
+            <div><a href="/adopt/certification">인증센터</a></div>
+        </header>
+
+        <!-- set1 -->
+        <section>
+            <div class="animal1">
+                <button class="moveHorizontal" onclick="rightFunction()"><</button>
+                <div class="animal1List" id="animal1List">
+                    <th:block th:unless="${animal1List == null}">
+                        <input type="hidden" id="animal1Cate" name="animal1Cate" value="-1">
+                        <th:block th:if="${#lists.size(animal1List)} > 0" th:each="animal1:${animal1List}">
+                            <button type="button" class="animal1Btn" th:text="${animal1.a1Species}" th:value="${animal1.a1Seq}" onclick="animalBtnClick(this)"></button>
+                        </th:block>
+                    </th:block>
+                </div>
+                <button class="moveHorizontal" onclick="leftFunction()">></button>
+            </div><br>
+
+
+            <article id="myList">
+                <th:block th:unless="${finalNewfmList == null}">
+                    <th:block th:if="${#lists.size(finalNewfmList)} > 0" th:each="newfmList : ${finalNewfmList}">
+                        <th:block th:unless="${newfmList == null}">
+                            <th:block th:if="${#lists.size(newfmList)} > 0" th:each="newfm:${newfmList}">
+                                <th:block th:unless="${certList == null}">
+                                    <div class="text_wrapper" th:name="${newfm.a1Seq}" th:if="${#lists.contains(certList, ''+newfm.a1Seq)}">
+                                        <a href="/adopt/out/" th:attrappend="href=${newfm.nSeq}">
+                                            <img src="/" th:attrappend="src=${newfm.nThumb}" class="image" th:unless="${newfm.nThumb == null}">
+                                            <img src="/static/img/pet-shelter.png" class="image" th:if="${newfm.nThumb == null}">
+                                            <p class="content">
+                                                종 : <span th:text="${newfm.a2Species}"></span><br>
+                                                생년월일 : <span th:text="${newfm.nBirth}"></span><br>
+                                                성별 :
+                                                <span th:if="${newfm.nSex == 1}">남</span>
+                                                <span th:if="${newfm.nSex == 2}">여</span>
+                                            </p>
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </th:block>
+            </article>
+            <div style="width:100%; text-align: center; margin-top:20px;" id="certInfo">인증센터에서 인증 후, 열람이 가능합니다</div>
+
+
+        </section>
+
+        <a href="/adopt/out/write" id="plusButton" style="position: fixed; bottom: 90px; right: 50%; transform: translateX(220px);"><img src="/static/img/btn.png"></a>
+
+    </div>
+</th:block>
+<th:block layout:fragment="naviFragment">
+    <navigator>
+        <!-- 알림창 보이게 하는 버튼 -->
+        <button id="naviO" onclick="toBig()" style="display: block;box-shadow: 0 0 5px gray;"><img src="/static/img/walkmate.png" style="width:40px; margin-top:7px;"></button>
+        <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+        <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+        <div class="float_container" id="float_container" style="display:none;">
+
+
+            <div class="naviAlert">
+                <th:block class="walkmateList" th:unless="${walkmateList == null}">
+                    <th:block th:if="${#lists.size(walkmateList)} > 0" th:each="walkmate:${walkmateList}">
+                        <h3>산책메이트 신청이 왔어요!</h3>
+
+                        <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+                        <sub>총 <span th:text="${#lists.size(walkmateList)}"></span>개</sub>
+
+
+                        <!-- 신청 화면 반복 -->
+                        <th:block th:unless="${walkmate.proposeAlias == null or walkmate.proposeAlias == ''}">
+                            <div class="alertSet">
+                                <div class="naviInfo">
+                                    <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                                    <p id="naviA3_nick" th:text="${walkmate.proposeAlias}"><b>닉네임</b></p>
+                                    <p id="naviCont">
+                                        <span th:text="${walkmate.a3Nick}"></span>(<span th:text="${walkmate.a2Species}"></span>)<br>
+                                        <span id="naviMessage" th:text="${walkmate.wmContent}">메시지 로딩 중</span>
+
+                                    </p>
+                                    <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                                         메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                                </div>
+                            </div>
+
+                            <!-- 거절, 수락 버튼 -->
+                            <table class="naviButton" style="width:100%;">
+                                <tr style="width:100%;">
+                                    <td>
+                                        <form action="/walkmate/refuse/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="submit" class="btnRefuse" value="거절">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/walkmate/permit/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                            <input type="hidden" name="_method" value="put">
+                                            <input type="submit" class="btnPermit" value="수락">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if="${#lists.size(walkmateList)} == 0">받은 산책메이트 신청이 없습니다</th:block>
+                </th:block>
+            </div>
+
+            <!-- 알림창 안 보이게 하는 버튼 -->
+            <button id="naviX" onclick="toSmall()">x</button>
+            <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+        </div>
+    </navigator>
+</th:block>
+</body>
+</html>
+
+<script>
+
+    window.onload = function() {
+        resetNewfm();
+        animalBtnClick(document.getElementsByClassName("animal1Btn")[0]);
+    }
+
+    function leftFunction() {
+        document.getElementById("animal1List").scrollLeft += 100;
+    }
+
+    function rightFunction() {
+        document.getElementById("animal1List").scrollLeft -= 100;
+    }
+
+    function resetNewfm() {
+
+        // animal1 목록
+        var length = []
+        for(var i=1; i<7; i++) {
+            length.push(i);
+        }
+
+        // 1~6 display none
+        for(var i=1; i<7; i++) {
+            length[i-1] = document.getElementsByName(i).length;
+            for(var j=0; j<length[i-1]; j++) {
+                document.getElementsByName(i)[j].style.display = 'none';
+            }
+        }
+
+        document.getElementById("certInfo").style.display = 'none';
+
+    }
+
+    function resetBtnColor() {
+        var length = document.getElementsByClassName("animal1Btn").length;
+        for(var i=0; i<length; i++) {
+            document.getElementsByClassName("animal1Btn")[i].style.background = "white";
+            document.getElementsByClassName("animal1Btn")[i].style.color = "black";
+        }
+    }
+
+    function animalBtnClick(e) {
+        resetNewfm();
+        resetBtnColor();
+
+        e.style.background = "#3C6255";
+        e.style.color = "white";
+
+        for(var i=1; i<7; i++) {
+            if(e.value == i) {
+                var length = document.getElementsByName(i).length;
+
+                for(var j=0; j<length; j++) {
+                    document.getElementsByName(i)[j].style.display = 'inline-block';
+                }
+            }
+        }
+
+        var length = document.getElementsByName(e.value).length;
+        if (length < 1) {
+            document.getElementById("certInfo").style.display = 'block';
+        }
+    }
+
+</script>

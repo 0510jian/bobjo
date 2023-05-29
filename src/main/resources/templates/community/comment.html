@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+    <head>
+        <meta charset="utf-8">
+        <title>comment</title>
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+        <link rel="stylesheet" th:href="@{/static/css/community/comment.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+        <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+    </head>
+    <body>
+    <th:block layout:fragment="content">
+    <div class="main_container">
+        <header>
+            <th:block>
+                <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+            </th:block>
+        </header>
+
+        <section>
+            <th:block th:unless="${replyList == null}">
+                <th:block th:if="${#lists.size(replyList)} > 0" th:each="reply:${replyList}">
+                    <form class="r_seq" method="post" action="comment/" th:attrappend="action=${reply.rSeq}">
+                        <span id="u_seq" th:text="${reply.uAlias}">아이디</span>&nbsp<span id="r_date" th:text="${reply.rDate}">11/03  13:02 </span><br>
+                        <p th:text="${reply.rContent}">본문</p>
+                        <input type="submit"id="btn_reply" value="삭제" th:if="${reply.uSeq == user.uSeq and reply.rCate != 'sos'}">
+                        <input type="hidden" name="_method" value="delete">
+                    </form>
+                </th:block>
+            </th:block>
+
+
+            <!-- 일반 게시판에서는 비밀댓글이 필요없다고 생각해서 비밀체크 부분은 제외하였습니다. -->
+            <form class="comment" action="comment" method="post">
+                <input type="text" name="rContent" id="comment_text">
+                <input type="submit" value="작성" id="comment_com">
+            </form>
+        </section>
+        
+
+
+    </div>
+    </th:block>
+</body>
+</html>

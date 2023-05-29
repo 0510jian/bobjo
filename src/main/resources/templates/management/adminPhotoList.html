@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>photo_Management_list</title>
+    <link rel="stylesheet" th:href="@{/static/css/management/photo_Management.css}">
+</head>
+<body>
+  
+<!-- main container -->
+<div class="main_container">
+  
+  
+  <h1>사진 인증</h1>
+
+
+    <div class="list">
+    <th:block th:unless="${certificationList == null}">
+      <th:block th:if="${#lists.size(certificationList)} > 0" th:each="certification:${certificationList}">
+        <div class="member">
+          <div class="id"><a href="/manage/certification/" th:attrappend="href=${certification.ceSeq}" th:text="${certification.uAlias}"></a> </div>
+          <div>
+            <span class="species" th:text="${certification.a1Species}"></span>
+          </div>
+        </div>
+      </th:block>
+    </th:block>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>certification_quiz</title>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" th:href="@{/static/css/adopt/certification.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+</head>
+<body>
+
+<th:block layout:fragment="content">
+<!-- main container -->
+<div class="main_container">
+
+  <!-- header -->
+  <header class="menu">
+    <th:block>
+      <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px; height: auto;"></h1>
+    </th:block>
+    <div><a href="/adopt/in">입양</a></div>
+    <div><a href="/adopt/out">분양</a></div>
+    <div><a href="/adopt/certification" style="color: #f07635;">인증센터</a></div>
+  </header>
+
+
+
+  <section>
+    <!-- 선택된 반려동물 -->
+    <div class="step">
+      <div>
+        <br>
+        선택한 동물
+        <div id="a1_species" th:text="${animal1.a1Species}">animal</div>
+      </div>
+    </div>
+
+<hr class="dot"><br>
+
+    <!-- certification_quiz form-->
+    <form name="certification_quiz" action="/adopt/certification/quizscore" method="post">
+      <input type="hidden" name="inputAnswers" id="inputAnswers">
+      <input type="hidden" name="a1Seq" th:value="${animal1.a1Seq}">
+
+      <th:block th:unless="${quizList == null}">
+        <input type="hidden" name="ans1" th:value="${quizList[0].qAnswer}">
+        <input type="hidden" name="ans2" th:value="${quizList[1].qAnswer}">
+        <input type="hidden" name="ans3" th:value="${quizList[2].qAnswer}">
+
+        <th:block th:if="${#lists.size(quizList)} > 0" th:each="quiz : ${quizList}">
+
+          <div class="step">
+            <div th:text="${quiz.qQuiz}"></div>
+            <div style="margin: 10px;">
+              <button type="button" class="c_O" name="quiz" th:attrappend="name=${quiz.qSeq}" onclick="btnClick(this)">O</button>
+              <input type="button" class="answer" th:id="${quiz.qSeq}" value=" ">
+              <button type="button" class="c_X" name="quiz" th:attrappend="name=${quiz.qSeq}" onclick="btnClick(this)">X</button>
+            </div>
+          </div>
+
+        </th:block>
+      </th:block>
+
+
+      <!-- 제출 -->
+      <div class="step">
+        <br>
+        <input type="button" id="submitBtn" value="제출" class="creverse_text" onclick="checkAnswer()">
+      </div>
+
+    </form>
+  </section>
+
+
+
+</div>
+</th:block>
+
+</body>
+</html>
+
+<script>
+
+
+  function btnClick(e) {
+    var seq = e.name;
+    seq = seq.replace("quiz", "");
+
+    document.getElementById(seq).value = e.innerHTML;
+  }
+
+  function checkAnswer() {
+
+    var answer1 = document.getElementsByClassName("answer")[0].value;
+    var answer2 = document.getElementsByClassName("answer")[1].value;
+    var answer3 = document.getElementsByClassName("answer")[2].value;
+
+    if (answer1 == '.' || answer2 == '.' || answer3 == '.') {
+      alert("문제를 모두 풀어야 채점이 가능합니다");
+    } else {
+      document.getElementById("inputAnswers").value = answer1 + answer2 + answer3;
+      document.getElementById("submitBtn").type = 'submit';
+    }
+
+  }
+
+</script>

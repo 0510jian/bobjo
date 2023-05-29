@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+  <head>
+    <meta charset="utf-8">
+    <title>community_boardWriting</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/community/boardWriting.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+    <script src="/static/ckeditor/ckeditor.js"></script>
+  </head>
+
+  <body>
+    <th:block layout:fragment="content">
+      <div class="main_container">
+        <!--로고 사진 넣기-->
+        <header>
+          <th:block>
+            <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+          </th:block>
+        </header>
+
+
+        <section>
+          <!-- 게시판 카테고리 선택 -->
+          <div class="category">
+            <input type="radio" name="cateChoose" id="0" value="0" onclick="choose(0)" checked><label for="0">자유로운글</label>
+            <input type="radio" name="cateChoose" id="1" value="1" onclick="choose(1)"><label for="1">사료/간식</label>
+            <input type="radio" name="cateChoose" id="2" value="2" onclick="choose(2)"><label for="2">장난감</label>
+            <input type="radio" name="cateChoose" id="3" value="3" onclick="choose(3)"><label for="3">정보 공유</label>
+          </div>
+
+          <div class="content">
+            <form class="" action="/community/freeboard/write" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="bCate" id="bCate" value="0">
+
+              <!-- 제목 -->
+              <input type="text" class="input" id="b_title" name="bTitle" value="" placeholder="제목을 입력해주세요." required><br><br>
+
+              <!-- 사진첨부 -->
+              <input type="file" class="input" id="b_pic" name="uploadfile" accept="image/png, image/jpeg" value="사진"><br><br>
+
+              <!-- 내용 -->
+              <textarea class="textarea" id="b_cont" name="bContent" placeholder="내용을 입력해주세요." required></textarea><br><br>
+
+              <!-- 취소 / 등록 (취소버튼 누르면 글 목록 페이지로 이동 / 등록버튼 누르면 게시글 작성 ) -->
+              <div class="button"><br>
+                <a href="/community/freeboard"><button type="button" class="btnCancel" name="">취소</button></a>
+                <button type="submit" class="btnWrite "name="">등록</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </th:block>
+  </body>
+</html>
+<script>
+  CKEDITOR.replace("b_cont");
+
+  function choose(number) {
+    document.getElementById("bCate").value = number;
+  }
+</script>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>certification_photo</title>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" th:href="@{/static/css/adopt/certification.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+<body>
+
+<th:block layout:fragment="content">
+<!-- main container -->
+<div class="main_container">
+
+  <!-- header -->
+  <header class="menu">
+    <th:block>
+      <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px; height: auto;"></h1>
+    </th:block>
+    <div><a href="/adopt/in">입양</a></div>
+    <div><a href="/adopt/out">분양</a></div>
+    <div><a href="/adopt/certification" style="color: #f07635;">인증센터</a></div>
+  </header>
+<section>
+
+  <!-- certification_photo form-->
+  <form action="/adopt/certification/photo" method="post" enctype="multipart/form-data">
+    <!-- 선택된 반려동물 -->
+
+    <div class="step">
+      <div>
+        선택한 동물
+        <div id="a1_species" th:text="${animal1.a1Species}">animal</div>
+        <input type="hidden" name="a1Seq" th:value="${animal1.a1Seq}">
+      </div>
+    </div>
+
+    <hr class="dot"><br>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      window.onload = function() {
+        var a1Supply1 = /*[[${animal1.a1Supply1}]]*/;
+
+        var a1Supply1List;
+
+        if(a1Supply1.indexOf("/") == -1) {
+          a1Supply1List = a1Supply1;
+        } else {
+          a1Supply1List = a1Supply1.split("/");
+        }
+
+        var code = '';
+        for(var i=0; i<a1Supply1List.length; i++) {
+          code = code + '<input type="checkbox" style="width:15px; margin-right: 10px;">' + a1Supply1List[i] + '<br>'
+        }
+
+        document.getElementById("c_materialName").innerHTML = code;
+
+
+
+
+
+
+        var a1Supply2 = /*[[${animal1.a1Supply2}]]*/;
+
+        var a1Supply2List;
+
+        if(a1Supply2.indexOf("/") == -1) {
+          a1Supply2List = a1Supply2;
+        } else {
+          a1Supply2List = a1Supply2.split("/");
+        }
+
+        var code = '';
+        for(var i=0; i<a1Supply2List.length; i++) {
+          code = code + '<input type="checkbox" style="width:15px; margin-right: 10px;">' + a1Supply2List[i] + '<br>'
+        }
+
+        document.getElementById("c_materialName2").innerHTML = code;
+      }
+
+      /*]]>*/
+    </script>
+
+    <!-- 꼭 필요해요 -->
+    <div>*꼭! 필요해요</div>
+    <div class="step">
+
+      <div class="material">
+        <table>
+          <tr>
+            <td style="width:200px; height: 200px;">
+              <label for="chooseFile1">
+                <img src="/static/img/photo-camera.png" id="img1" class="c_materialPhoto" name="c_materialPhoto" alt="사진을 등록해주세요" style="border-radius:20px; width:200px; height: 200px;">
+              </label>
+              <input type="file" id="chooseFile1" name="chooseFile1" accept="image/*" onchange="loadFile1(this)" style="display:none;">
+            </td>
+            <td style="width:250px; height:160px; padding: 20px;">
+              <div class="c_materialName" name="c_materialName" id="c_materialName" style="height:160px;">준비물</div>
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+    </div>
+
+    <!-- 필수는 아니지만 있으면 더 좋아요 -->
+    <div>*필수는 아니지만 있으면 더 좋아요!</div>
+    <div class="step">
+
+      <div class="material">
+        <table>
+          <tr>
+            <td style="width:200px; height: 200px;">
+              <label for="chooseFile2">
+                <img src="/static/img/photo-camera.png" id="img2" class="c_materialPhoto" name="c_materialPhoto" alt="사진을 등록해주세요" style="border-radius:20px; width:200px; height: 200px;">
+              </label>
+              <input type="file" id="chooseFile2" name="chooseFile2" accept="image/*" onchange="loadFile2(this)" style="display:none;">
+            </td>
+            <td style="width:250px; height:160px; padding: 20px;">
+              <div class="c_materialName" name="c_materialName" id="c_materialName2" style="height:160px;">준비물</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 제출 -->
+    <div style="text-align: center;">
+      <input type="submit" value="제출" class="creverse_text" onclick="goSubmit()">
+    </div>
+
+  </form>
+
+</section>
+
+
+</div>
+</th:block>
+
+</body>
+</html>
+
+<script>
+  function loadFile1(e) {
+    // import file
+    var file = e.files[0];
+    //
+    document.getElementById("img1").src = URL.createObjectURL(file);
+  }
+
+  function loadFile2(e) {
+    // import file
+    var file = e.files[0];
+    //
+    document.getElementById("img2").src = URL.createObjectURL(file);
+  }
+
+  function goSubmit() {
+    alert("정상적으로 제출되었습니다.\n관리자의 인증 확인 후 원활한 이용이 가능합니다");
+  }
+</script>

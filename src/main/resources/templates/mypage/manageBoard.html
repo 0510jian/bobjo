@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>manage_myboard</title>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" th:href="@{/static/css/mypage/mypage.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+  <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi.css}">
+
+</head>
+<body>
+
+<th:block layout:fragment="content">
+<!-- main container -->
+<div class="main_container">
+
+  <!-- header -->
+  <header class="menu">
+    <th:block>
+      <img src="/static/img/out.png" id="out" style="height:20px; width:20px; position: absolute; right: 30px; top:30px;" th:onclick="|location.href='@{/logout}'|">
+      <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+    </th:block>
+    <div><a href="/mypage/privacy" style="font-size:12pt;">개인정보수정</a></div>
+    <div><a href="/mypage/myboard" style="color:#f07635; font-size:12pt;">작성글관리</a></div>
+    <div><a href="/mypage/walkmate" style="font-size:12pt;">메이트관리</a></div>
+    <div><a href="/mypage/asking" style="font-size:12pt;">문의하기</a></div>
+  </header>
+
+
+  <hr><br>
+  <section>
+    <!-- 작성글 관리 form -->
+    <form name="" action="/mypage/myboard" method="post">
+      <input type="hidden" name="deleteList" id="deleteList">
+      <input type="hidden" name="_method" value="delete">
+
+      <!-- 선택, 삭제 버튼 -->
+      <input type="checkbox" id="allcheck" name="checkbox" style="float: left;" value="전체선택" onclick="selectAll(this)"/>
+      <span class="button" style="padding: 5px 15px;"><label for="allcheck" style="font-size:14px;">전체선택</label></span>
+      <input type="submit" onclick="getCheck()" style="background: #fa5162; color: white; float: right;" class="button" value="삭제"/>
+      <input type="hidden" name="myCate" id="myCate">
+
+      <select name="cate" class="input" onchange="selectCate(this.value)">
+        <option value="sos" checked onclick="">응급실</option>
+        <option value="board">밥줘게시판</option>
+        <option value="walk">산책메이트</option>
+        <option value="newfm">입/분양</option>
+      </select>
+
+<!------------------------------ board ------------------------------->
+      <!-- 게시글 목록 -->
+      <table class="boardlist" id="board">
+        <!-- 게시글 1개 / 반복 -->
+        <th:block th:unless="${boardList == null}">
+            <th:block th:if="${#lists.size(boardList)} > 0" th:each="board:${boardList}" class="container">
+
+              <tr>
+                <td rowspan="2" style="width: 100px;"><input type="checkbox" name="checkbox" th:value="${board.bSeq}"></td>
+                <td rowspan="2" style="width: 280px; padding: 0px;" th:text="${board.bTitle}"></td>
+                <td style="width: 50px; text-align: center; padding: 0px; font-size:10pt;" th:text="${board.rCount}">0</td>
+              </tr>
+              <tr>
+                <td style="width: 50px; text-align: center; font-size:10pt;">댓글</td>
+              </tr>
+            </th:block>
+        </th:block>
+
+      </table>
+
+<!------------------------------ sos ------------------------------->
+      <!-- 게시글 목록 -->
+      <table class="boardlist" id="sos">
+        <!-- 게시글 1개 / 반복 -->
+        <th:block th:unless="${sosList == null}">
+            <th:block th:if="${#lists.size(sosList)} > 0" th:each="sos:${sosList}" class="container">
+
+              <tr>
+                <td rowspan="2" style="width: 100px;"><input type="checkbox" name="checkbox" th:value="${sos.sSeq}"></td>
+                <td rowspan="2" style="width: 280px; padding: 0px;" th:text="${sos.sTitle}">제목</td>
+                <td style="width: 50px; text-align: center; padding: 0px; font-size:10pt;" th:text="${sos.rCount}">0</td>
+              </tr>
+              <tr>
+                <td style="width: 50px; text-align: center; font-size:10pt;">댓글</td>
+              </tr>
+            </th:block>
+        </th:block>
+
+      </table>
+
+<!------------------------------ walk ------------------------------->
+      <!-- 게시글 목록 -->
+      <table class="boardlist" id="walk">
+        <!-- 게시글 1개 / 반복 -->
+        <th:block th:unless="${walkList == null}">
+            <th:block th:if="${#lists.size(walkList)} > 0" th:each="walk:${walkList}" class="container">
+
+              <tr>
+                <td rowspan="2" style="width: 100px;"><input type="checkbox" name="checkbox" th:value="${walk.wSeq}"></td>
+                <td rowspan="2" style="width: 280px; padding: 0px;" th:utext="${walk.wContent}">제목</td>
+                <td style="width: 50px; text-align: center; padding: 0px; font-size:10pt;" th:text="${walk.rCount}">0</td>
+              </tr>
+              <tr>
+                <td style="width: 50px; text-align: center; font-size:10pt;">댓글</td>
+              </tr>
+            </th:block>
+        </th:block>
+
+      </table>
+
+
+<!------------------------------ newfm ------------------------------->
+      <!-- 게시글 목록 -->
+      <table class="boardlist" id="newfm">
+        <!-- 게시글 1개 / 반복 -->
+        <th:block th:unless="${newfmList == null}">
+            <th:block th:if="${#lists.size(newfmList)} > 0" th:each="newfm:${newfmList}" class="container">
+              <tr>
+                <td rowspan="2" style="width: 100px;"><input type="checkbox" name="checkbox" th:value="${newfm.nSeq}"></td>
+                <td rowspan="2" style="width: 280px; padding: 0px;" th:text="${newfm.nContent}">제목</td>
+                <td style="width: 50px; text-align: center; padding: 0px; font-size:10pt;" th:text="${newfm.rCount}">0</td>
+              </tr>
+              <tr>
+                <td style="width: 50px; text-align: center; font-size:10pt;">댓글</td>
+              </tr>
+            </th:block>
+        </th:block>
+      </table>
+
+
+    </form>
+  </section>
+
+</div>
+</th:block>
+<th:block layout:fragment="naviFragment">
+  <navigator>
+    <!-- 알림창 보이게 하는 버튼 -->
+    <button id="naviO" onclick="toBig()" style="display: block;box-shadow: 0 0 5px gray;"><img src="/static/img/walkmate.png" style="width:40px; margin-top:7px;"></button>
+    <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+    <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+    <div class="float_container" id="float_container" style="display:none;">
+
+
+      <div class="naviAlert">
+        <th:block class="walkmateList" th:unless="${walkmateList == null}">
+          <th:block th:if="${#lists.size(walkmateList)} > 0" th:each="walkmate:${walkmateList}">
+            <h3>산책메이트 신청이 왔어요!</h3>
+
+            <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+            <sub>총 <span th:text="${#lists.size(walkmateList)}"></span>개</sub>
+
+
+            <!-- 신청 화면 반복 -->
+            <th:block th:unless="${walkmate.proposeAlias == null or walkmate.proposeAlias == ''}">
+              <div class="alertSet">
+                <div class="naviInfo">
+                  <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                  <p id="naviA3_nick" th:text="${walkmate.proposeAlias}"><b>닉네임</b></p>
+                  <p id="naviCont">
+                    <span th:text="${walkmate.a3Nick}"></span>(<span th:text="${walkmate.a2Species}"></span>)<br>
+                    <span id="naviMessage" th:text="${walkmate.wmContent}">메시지 로딩 중</span>
+
+                  </p>
+                  <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                       메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                </div>
+              </div>
+
+              <!-- 거절, 수락 버튼 -->
+              <table class="naviButton" style="width:100%;">
+                <tr style="width:100%;">
+                  <td>
+                    <form action="/walkmate/refuse/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                      <input type="hidden" name="_method" value="delete">
+                      <input type="submit" class="btnRefuse" value="거절">
+                    </form>
+                  </td>
+                  <td>
+                    <form action="/walkmate/permit/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                      <input type="hidden" name="_method" value="put">
+                      <input type="submit" class="btnPermit" value="수락">
+                    </form>
+                  </td>
+                </tr>
+              </table>
+
+            </th:block>
+          </th:block>
+
+          <th:block th:if="${#lists.size(walkmateList)} == 0">받은 산책메이트 신청이 없습니다</th:block>
+        </th:block>
+      </div>
+
+      <!-- 알림창 안 보이게 하는 버튼 -->
+      <button id="naviX" onclick="toSmall()">x</button>
+      <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+    </div>
+  </navigator>
+</th:block>
+</body>
+</html>
+
+
+<script>
+
+  window.onload = function() {
+    hideSection();
+    selectCate("sos");
+  }
+
+  function selectCate(id) {
+    hideSection();
+    noSelectAll(document.getElementById("allcheck"));
+    document.getElementById(id).style.display = 'block';
+    document.getElementById("myCate").value = id;
+  }
+
+
+  function hideSection() {
+    document.getElementById("board").style.display = 'none';
+    document.getElementById("sos").style.display = 'none';
+    document.getElementById("walk").style.display = 'none';
+    document.getElementById("newfm").style.display = 'none';
+  }
+
+
+
+  function selectAll(selectAll) {
+
+    var checks = document.querySelectorAll('input[type="checkbox"]');
+    checks.forEach((checkbox) => {
+      checkbox.checked = selectAll.checked
+     })
+  }
+
+  function noSelectAll(selectAll) {
+
+    var checks = document.querySelectorAll('input[type="checkbox"]');
+    checks.forEach((checkbox) => {
+      checkbox.checked = false;
+     })
+  }
+
+  function getCheck() {
+    var checks = 'input[name="checkbox"]:checked';
+    var checkAll = document.querySelectorAll(checks);
+
+    var result = "";
+    checkAll.forEach((check) => {
+      result += check.value + ' ';
+    });
+
+    result = result.replace("전체선택 ", "");
+
+    document.getElementById("deleteList").value = result;
+  }
+</script>

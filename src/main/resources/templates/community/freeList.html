@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="fragments/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" th:href="@{/static/css/community/freeBoardList.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/static/css/fragments/acceptNavi2.css}">
+    <title>freeboardList</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="main_container">
+            <header>
+                <th:block>
+                    <h1><img src="/static/img/logo.png" style="width: 110px; margin-left: -20px;"></h1>
+                </th:block>
+
+                <div><a href="/community/sos">응급실</a></div>
+                <div><a href="/community/freeboard" style="color:#f07635;">밥줘게시판</a></div>
+                <div><a href="/community/walkmate">산책메이트</a></div>
+            </header>
+
+            <!-- 자유게시판 글목록 -->
+
+            <section>
+                <div class="freeboardList" th:unless="${boardList == null}">
+                    <th:block th:if="${#lists.size(boardList)} > 0" th:each="board:${boardList}">
+                        <th:block th:unless="${board.uAlias == null or board.uAlias == ''}">
+                            <div class="content">
+                                <a href="/community/freeboard/" th:attrappend="href=${board.bSeq}">
+                                    <!-- 작성자 -->
+                                    <div class="writing_value">
+                                        <p id="uAlias" th:text="${board.uAlias}"></p>
+                                        <p>&nbsp;|&nbsp;</p>
+                                        <p id="bDate" th:text="${board.bDate}"></p>
+                                    </div>
+
+                                    <!-- 내용 -->
+                                    <p id="bTitle" onabort="bTitle" th:text="${board.bTitle}"></p>
+
+                                    <!-- 간식, 장난감, 자유글 중 표기 -->
+                                    <div class="value" th:if="${board.bCate == 0}">자유</div>
+                                    <div class="value" th:if="${board.bCate == 1}">사료/간식</div>
+                                    <div class="value" th:if="${board.bCate == 2}">장난감</div>
+                                    <div class="value" th:if="${board.bCate == 3}">정보</div>
+                                </a>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+
+            </section>
+
+            <a href="/community/freeboard/write" id="plusButton" style="position: fixed; bottom: 90px; right: 50%; transform: translateX(220px);"><img src="/static/img/btn.png"></a>
+
+        </div>
+    </th:block>
+    <th:block layout:fragment="naviFragment">
+        <navigator>
+            <!-- 알림창 보이게 하는 버튼 -->
+            <button id="naviO" onclick="toBig()" style="display: block;box-shadow: 0 0 5px gray;"><img src="/static/img/walkmate.png" style="width:40px; margin-top:7px;"></button>
+            <script>
+            function toBig() {
+                document.getElementById("float_container").style.display = 'block';
+                document.getElementById("naviO").style.display = 'none';
+            }
+        </script>
+
+
+
+
+            <!-- 메인화면 옆 오른쪽 플로팅 창 -->
+            <div class="float_container" id="float_container" style="display:none;">
+
+
+                <div class="naviAlert">
+                    <th:block class="walkmateList" th:unless="${walkmateList == null}">
+                        <th:block th:if="${#lists.size(walkmateList)} > 0" th:each="walkmate:${walkmateList}">
+                            <h3>산책메이트 신청이 왔어요!</h3>
+
+                            <!-- 신청 총 몇건 인지 띄우는 자바스크립트 -->
+                            <sub>총 <span th:text="${#lists.size(walkmateList)}"></span>개</sub>
+
+
+                            <!-- 신청 화면 반복 -->
+                            <th:block th:unless="${walkmate.proposeAlias == null or walkmate.proposeAlias == ''}">
+                                <div class="alertSet">
+                                    <div class="naviInfo">
+                                        <!-- th: 신청회원번호 "w_propose" 받아와서 회원번호"u_seq"로 닉네임 불러오기 -->
+                                        <p id="naviA3_nick" th:text="${walkmate.proposeAlias}"><b>닉네임</b></p>
+                                        <p id="naviCont">
+                                            <span th:text="${walkmate.a3Nick}"></span>(<span th:text="${walkmate.a2Species}"></span>)<br>
+                                            <span id="naviMessage" th:text="${walkmate.wmContent}">메시지 로딩 중</span>
+
+                                        </p>
+                                        <!-- th: 자바스크립트로 해당 객체 접근 후, 닉네임 등등 불러오고
+                                             메이트 성사여부"w_res" 판단 후 산책메이트 번호"w_seq" 부여 -->
+                                    </div>
+                                </div>
+
+                                <!-- 거절, 수락 버튼 -->
+                                <table class="naviButton" style="width:100%;">
+                                    <tr style="width:100%;">
+                                        <td>
+                                            <form action="/walkmate/refuse/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                                <input type="hidden" name="_method" value="delete">
+                                                <input type="submit" class="btnRefuse" value="거절">
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="/walkmate/permit/" th:attrappend="action=${walkmate.wmSeq}" method="post">
+                                                <input type="hidden" name="_method" value="put">
+                                                <input type="submit" class="btnPermit" value="수락">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </th:block>
+                        </th:block>
+
+                        <th:block th:if="${#lists.size(walkmateList)} == 0">받은 산책메이트 신청이 없습니다</th:block>
+                    </th:block>
+                </div>
+
+                <!-- 알림창 안 보이게 하는 버튼 -->
+                <button id="naviX" onclick="toSmall()">x</button>
+                <script>
+                function toSmall() {
+                    document.getElementById("float_container").style.display = 'none';
+                    document.getElementById("naviO").style.display = 'block';
+                }
+            </script>
+
+            </div>
+        </navigator>
+    </th:block>
+</body>
+</html>

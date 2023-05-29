@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/management/main_Management.css}">
+    <title>main_Management</title>
+</head>        
+<body>
+    <div class="main_container">
+        <h1>관리자 모드</h1>
+        <div class="border">
+            <div class="box">
+                <div class="btn"><a href="/manage/board">글 관리</a></div>
+                <div class="btn"><a href="/manage/member">회원 관리</a></div>
+            </div>
+            <div class="box">
+                <div class="btn"><a href="/manage/certification">사진 인증</a></div>
+                <div class="btn"><a href="/manage/quiz">퀴즈 등록</a></div>
+            </div>
+        </div>
+       
+
+    </div>
+</body>
+</html>
