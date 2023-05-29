@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.mypage.mypageMapper">
+
+    <!-- update user -->
+    <update id="updateUser" parameterType="com.bobjo.bobjo.DTO.userDTO">
+        UPDATE user
+        SET u_pw = #{uPw},
+            u_name = #{uName},
+            u_birth = #{uBirth},
+            u_mail = #{uMail},
+            u_tel = #{uTel},
+            u_addr = #{uAddr}
+        WHERE u_seq = #{uSeq}
+    </update>
+
+    <!-- update user not pw -->
+    <update id="updateUserNotPw" parameterType="com.bobjo.bobjo.DTO.userDTO">
+        UPDATE user
+        SET u_name = #{uName},
+            u_birth = #{uBirth},
+            u_mail = #{uMail},
+            u_tel = #{uTel},
+            u_addr = #{uAddr}
+        WHERE u_seq = #{uSeq}
+    </update>
+
+    <!-- select all board by uSeq -->
+    <select id="selectAllBoardByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.boardDTO">
+        SELECT *
+        FROM board
+        WHERE u_seq = #{uSeq} AND b_remove=0
+    </select>
+
+    <!-- select all sos by uSeq -->
+    <select id="selectAllSosByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.sosDTO">
+        SELECT *
+        FROM sos
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- select all walk by uSeq -->
+    <select id="selectAllWalkByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.walkDTO">
+        SELECT *
+        FROM walk
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- select all newfm by uSeq -->
+    <select id="selectAllNewfmByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.newfmDTO">
+        SELECT *
+        FROM newfm
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- update bRemove by bSeq -->
+    <update id="updateBRemoveByBSeq" parameterType="int">
+        UPDATE board
+        SET b_remove = 1
+        WHERE b_seq = #{seq}
+    </update>
+
+    <!-- deleteSosBySSeq -->
+    <delete id="deleteSosBySSeq" parameterType="int">
+        DELETE
+        FROM sos
+        WHERE s_seq = #{seq}
+    </delete>
+
+    <!-- deleteWalkByWSeq -->
+    <delete id="deleteWalkByWSeq" parameterType="int">
+        DELETE
+        FROM walk
+        WHERE w_seq = #{seq}
+    </delete>
+
+    <!-- deleteNewfmByNSeq -->
+    <delete id="deleteNewfmByNSeq" parameterType="int">
+        DELETE
+        FROM newfm
+        WHERE n_seq = #{seq}
+    </delete>
+
+    <!-- selectRCount -->
+    <select id="selectRCount" parameterType="map" resultType="int">
+        SELECT count(r_seq)
+        FROM reply
+        WHERE r_cate = #{cate} AND co_seq = #{seq}
+    </select>
+
+
+
+
+    <!-- selectWalkmateByUSeq -->
+    <select id="selectWalkmateByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.walkmateDTO">
+        SELECT *
+        FROM walkmate
+        WHERE (wm_propose = #{uSeq} OR wm_accept = #{uSeq}) AND (wm_res = 0 OR wm_res = 1 OR wm_res = 2)
+    </select>
+
+    <!-- selectAliasByUSeq -->
+    <select id="selectAliasByUSeq" parameterType="int" resultType="String">
+        SELECT u_alias
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- selectWalkmateByWmSeq -->
+    <select id="selectWalkmateByWmSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.walkmateDTO">
+        SELECT *
+        FROM walkmate
+        WHERE wm_seq = #{wmSeq}
+    </select>
+
+    <!-- selectTelByUSeq -->
+    <select id="selectTelByUSeq" parameterType="int" resultType="String">
+        SELECT u_tel
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- updateWalkmateByWmSeq -->
+    <update id="updateWalkmateByWmSeq" parameterType="int">
+        UPDATE walkmate
+        SET wm_res = 2
+        WHERE wm_seq = #{wmSeq}
+    </update>
+</mapper>

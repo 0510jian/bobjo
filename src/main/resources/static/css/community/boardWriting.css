@@ -1,0 +1,189 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  }
+
+  html, body {
+      height: 100%;
+      margin:0;
+      padding:0;
+      }
+
+   html{
+   background-color: rgb(255, 255, 255);
+  }
+  .main_container {
+  width: 500px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 30px;
+  background: #ecede8 !important;
+  box-shadow: 0 0 10px #506346;
+  height: 100%;
+  overflow-y: scroll;
+  }
+  .main_container::-webkit-scrollbar{
+      display: none;
+  }
+
+.category{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 20px;
+ 
+ 
+}
+
+
+.category input[type=radio]{  /* 원래 라디오 버튼 없애줌 */
+    display: none;
+}
+
+.category input[type=radio]+label {
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    width: 100px;
+    border-radius: 20px;
+    line-height: 30px;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+    margin-right: 10px;
+}
+
+.category input[type=radio]+label {
+    background-color: rgb(220, 220, 220);
+    color: #333;
+}
+
+.category input[type=radio]:checked+label {
+    background-color: #f07635;
+    color: #fff;
+}
+
+
+#b_pic {
+  padding-left: 13px;
+  width: 440px;
+  height:40px;
+  overflow: hidden;
+
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+.input {
+  border-radius: 20px;
+  display: inline-block;
+  margin-left: auto;
+  height: 30px;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  border: none;
+}
+
+textarea{
+  background-color: rgb(236, 236, 236);
+  border: none;
+  border-radius: 20px;
+  display: inline-block;
+  margin-left: auto
+  width: 440px;
+  height:500px;
+  padding-left: 10px;
+  vertical-align: top;
+  resize: none;
+}
+
+.button {
+  float: right;
+  margin-right: 20px;
+  margin-top: -50px;
+}
+
+.btnCancel {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  color: #000;
+  background-color: #FAFAFA;
+}
+
+.btnCancel:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  background-color: #CCC;
+}
+
+.btnWrite {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  width: 100px;
+  height: 30px;
+  color: black;
+  background-color: rgb(218, 218, 218);
+}
+
+.btnWrite:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: white;
+  background-color:#3C6255;
+}
+
+
+#myBlank {
+    margin-top: 20px;
+}
+.value{
+    display: inline-block;
+    background: red;
+}
+
+
+
+    header{
+            z-index: 1;
+            background-color: white;
+            position: fixed;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            width: 500px;
+            border-bottom: 7px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+        cursor: pointer;
+            width: 100%;
+        text-align: center;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        margin-top:20px;
+        }
+
+section{
+  margin-top: 100px;
+  margin-bottom: 140px;
+}
+
+#footer2 {
+    background: #61876E;
+}

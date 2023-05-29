@@ -1,0 +1,73 @@
+*{
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+html, body {
+background: #A6BB8D !important;
+}
+.main_container {
+background:#ecede8 !important;
+}
+
+
+footer{
+  background-color: #3C6255;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  width: 500px;
+  height: 70px;
+  transform: translateX(-50%);
+  display: flex;
+  color: white;
+}
+
+footer>div{
+  text-align: center;
+  width: 25%;
+  transition: 0.5s;
+  padding-top:13px;
+}
+footer>div>i{
+  margin-top: 5px;
+  font-size: 25px;
+}
+footer>div>p{
+  padding-top: 1px;
+}
+
+
+
+
+
+#myHeader {
+    margin-top: 20px;
+}
+
+#plusButton {
+opacity: 0.8;
+}
+
+a { text-decoration: none; color: black;}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+
+@font-face {
+    font-family: 'KOTRA_GOTHIC';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+font-family: 'KOTRA_GOTHIC';
+}

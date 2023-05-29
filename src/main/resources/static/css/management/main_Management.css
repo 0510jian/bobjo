@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+    html, body {
+    background:rgb(245,245,245) !important;
+    }
+    .main_container {
+    background: white !important;
+    }
+
+    html, body {
+            height: 100%;
+            margin:0;
+            padding:0;
+            }
+
+
+.main_container {
+    position: relative;
+    width: 500px;
+   
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 5px rgb(218, 218, 218);
+    padding-bottom: 104px;
+
+    overflow-y: scroll;
+        height:100%;
+}
+.main_container::-webkit-scrollbar{
+  display: none;
+  }
+h1{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.border{
+    border: 1px solid black;
+}
+.box{
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.btn{
+    background-color: #eee;
+    border-radius: 50px;
+    margin: 40px auto;
+    text-align: center;
+    width: 150px;
+    padding: 10px 0;
+}
+.btn>a{
+    color: black;
+}
+.btn:hover{
+    background-color: #ccc;
+}
+.btn:hover>a{
+    color: white;
+}
+
+
+a { text-decoration: none; color: black;}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+
+@font-face {
+    font-family: 'NEXONFootballGothicBA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+   font-family: 'NEXONFootballGothicBA1';
+}

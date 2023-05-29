@@ -1,0 +1,115 @@
+*{
+margin: 0;
+padding: 0;
+list-style: none;
+text-decoration: none;
+box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin:0;
+    padding:0;
+    }
+
+ html{
+ background-color: rgb(255, 255, 255);
+}
+.main_container {
+ width: 500px;
+ max-width: 500px;
+ margin: 0 auto;
+ padding: 0 30px;
+ background: #ecede8 !important;
+ box-shadow: 0 0 10px #506346;
+ height: 100%;
+ overflow-y: scroll;
+}
+
+.main_container::-webkit-scrollbar{
+    display: none;
+    }
+
+/* 댓글 */
+.r_seq{
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;margin-top: 10px;
+}
+
+/* 댓글 쓴 유저 아이디 */
+#u_seq{font-size: 5px;}
+
+/* 댓글 쓴 시간날짜 */
+#r_date{font-size: 5px;}
+
+/* 답글버튼 */
+#btn_reply{
+    background-color: rgb(134, 134, 134);
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    font-size: 5px;
+}
+#btn_reply:hover{background-color: #115a30;}
+
+/* 댓글다는 input 부분 */
+#comment_text{
+    display: inline-block;
+    background-color: white;
+    width: 370px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    text-align: center;
+}
+
+/* 댓글 제출  */
+#comment_com{
+    display: inline-block;
+    background-color: white;
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+#comment_com:hover{background-color: #3C6255; color:white;}
+    header{
+        z-index: 1;
+        background-color: white;
+        position: fixed;
+        top: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        width: 500px;
+        border-bottom: 7px solid #ccc;
+    }
+    h1{
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        margin-top:20px;
+    }
+
+    section{
+        margin-top: 120px;
+        margin-bottom: 100px;
+    }
+
+#footer2 {
+    background: #61876E;
+}

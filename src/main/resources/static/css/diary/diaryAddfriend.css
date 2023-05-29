@@ -1,0 +1,190 @@
+  *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box; 
+            }
+            html, body {
+                height: 100%;
+                margin:0;
+                padding:0;
+                }
+
+             html{
+             background-color: rgb(255, 255, 255); 
+            } 
+            .main_container {
+             width: 500px;
+             max-width: 500px;
+             margin: 0 auto;
+             padding: 0 30px;
+             box-shadow: 0 0 10px #506346;
+             height: 100%;
+             overflow-y: scroll; 
+            }
+            .main_container::-webkit-scrollbar{
+                display: none;
+            }
+            .xi-search{
+                z-index: 2;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 25px;
+                cursor: pointer;
+            }
+            header{
+                z-index: 1;
+                background-color: white;
+                position: fixed;
+                top: 0px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-wrap: wrap;
+                width: 500px; 
+                border-bottom: 7px solid #ccc;
+            }
+            h1{
+                cursor: pointer;
+                width: 100%;
+                text-align: center;
+                padding-left: 10px;
+                padding-bottom: 10px;
+                margin-top:20px;
+            }
+
+            h3 {
+            color: #3C6255;
+            }
+            
+            header div{
+                width: 33.3%;
+                text-align: center;
+                position: relative;
+                margin-right: 20px;
+                 font-size: 1.2rem;
+                font-weight: 600; 
+                 margin: 0;
+                transition: 0.2s;
+                cursor: pointer; 
+             }
+            header div::after {
+                position: absolute;
+                left: 0;
+                bottom: -7px;
+                content: '';
+                display: inline-block;
+                width: 0;
+                height: 7px;
+                background-color: #f07635;
+            }
+            header div:hover{
+                color: #f07635;
+            }
+            header div:hover::after{
+                width: 100%;
+                transition: 0.5s;
+            }
+            form{
+                margin-top: 100px;
+            }
+            /* 안내문구 */
+           #D_guide{
+            font-size: small; 
+            font-weight: bold;
+        }
+
+            #D_guide2{
+                font-size: small; 
+                font-weight: bold;
+           } 
+
+            /* 찾는 친구의 닉네임 입력란  */
+            #D_findFriend{ 
+                display: inline-block;
+                background-color: white;
+                width: 300px; 
+                height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 8px; 
+                text-align: center;
+            }
+            
+            /* 찾기버튼 */
+            #D_btnFriend{display: inline-block;
+                background-color: white;
+                width: 100px; 
+                height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 5px; 
+                text-align: center;
+                margin-top: 10px; 
+                margin-bottom: 10px; 
+                margin-left: 10px;
+                box-shadow: 1px 1px 1px 1px #C0C0C0;
+            }
+            #D_btnFriend:hover{
+                letter-spacing: 0.5em;
+                transition: 0.3s;
+                text-indent: 10px;
+                color: #fff;
+                background-color: #3C6255;
+            }
+
+            /* 중간 searching 부분  */
+            .D_search{
+                text-align: center;
+                margin-top: 50px; 
+                margin-bottom: 50px; 
+                font-weight: bold;
+            }
+
+            /* 찾는분이 이분이 맞으신가요 div */
+            .D_friend{
+                display: inline-block; 
+                background-color: white;
+                width: 300px; 
+                height: 70px; 
+                padding: 10px; 
+                border: none; 
+                border-radius: 20px; 
+                margin-top: 10px; 
+                margin-bottom: 20px;
+            }
+
+            /* 추가하기 버튼  */
+            #D_addBtn{
+                display: inline-block;
+                background-color: white;
+                width: 100px; 
+                height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 5px; 
+                text-align: center;
+                margin-top: 10px; 
+                margin-bottom: 10px; 
+                margin-left: 10px;
+                box-shadow: 1px 1px 1px 1px #C0C0C0;
+            }
+            #D_addBtn:hover{
+                letter-spacing: 0.5em;
+                transition: 0.3s;
+                text-indent: 10px;
+                color: #fff;
+                background-color: #f07635;
+            }
+
+
+section{
+margin-top: 120px;
+margin-bottom: 100px;
+}
+
+#footer1 {
+    background: #61876E;
+}

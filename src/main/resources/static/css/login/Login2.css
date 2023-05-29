@@ -1,0 +1,115 @@
+
+ *{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box; 
+    }
+    html, body {
+        height: 100%;
+        margin:0;
+        padding:0;
+        }
+
+    html, body {
+    background: #A6BB8D !important;
+    }
+    .main_container {
+    background:#ecede8 !important;
+    }
+   @font-face {
+           font-family: 'KOTRA_GOTHIC';
+           src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+           font-weight: normal;
+           font-style: normal;
+       }
+       * {
+       font-family: 'KOTRA_GOTHIC';
+       }
+
+    a { text-decoration: none; color: black;}
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+
+     html{
+     background-color: rgb(255, 255, 255); 
+    } 
+    .main_container {
+    width: 500px;
+    height: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 30px;
+    box-shadow: 0 0 10px #506346;
+    overflow-y: scroll;
+    }
+    .main_container::-webkit-scrollbar{
+        display: none;
+    }
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 100px;
+}
+.login{
+    
+    text-align: left;
+    font-size: 20px;
+   
+    
+    
+}
+.input{
+    border-radius: 50px;
+    display: inline-block;
+    height: 50px;
+    width: 300px;
+    margin-left: 30px;
+    border: none;
+    background-color: white;
+    padding: 20px;
+}
+
+
+
+.submit{
+    
+    display: block;
+    margin: 50px auto;
+   background-color: white;
+    height: 50px;
+    width: 250px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+    font-weight: bold;
+    border: none;
+}
+.submit:hover{
+    letter-spacing: 0.5em;
+    transition: 0.3s;
+    text-indent: 10px;
+    color: #fff;
+    background-color: #3C6255;
+}
+
+
+
+
+
+
+
+
+table {
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+section {
+margin-top:100px;
+}

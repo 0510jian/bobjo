@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.diary.diaryMapper">
+
+    <!-- uSeq으로 animal3 select -->
+    <select id="selectAllAnimal3ByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal3DTO">
+        SELECT *
+        FROM animal3
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- uSeq으로 diary select -->
+    <select id="selectAllDiaryByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.diaryDTO">
+        SELECT *
+        FROM diary
+        WHERE u_seq = #{uSeq}
+        ORDER BY d_date DESC
+    </select>
+
+    <!-- insert diary -->
+    <insert id="insertDiary" parameterType="com.bobjo.bobjo.DTO.diaryDTO" useGeneratedKeys="true" keyProperty="dSeq">
+        INSERT INTO diary (
+            d_thumb, d_title, d_content, d_date, d_weather, u_seq, a3_seq
+        ) VALUES (
+            #{dThumb}, #{dTitle}, #{dContent}, #{dDate}, #{dWeather}, #{uSeq}, #{a3Seq}
+        )
+    </insert>
+
+    <!-- select all calendar -->
+    <select id="selectAllCalendarByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.calendarDTO">
+        SELECT *
+        FROM calendar
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- select calendar -->
+    <select id="selectCalendarByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.calendarDTO">
+        SELECT *
+        FROM calendar
+        WHERE u_seq = #{uSeq} AND c_share = 1
+    </select>
+
+    <!-- insert calendar -->
+    <insert id="insertCalendar" parameterType="com.bobjo.bobjo.DTO.calendarDTO">
+        INSERT INTO calendar (
+            c_title, c_sdate, c_edate, c_cate, c_share, c_cycle, u_seq
+        ) VALUES (
+            #{cTitle}, #{cSdate}, #{cEdate}, #{cCate}, #{cShare}, #{cCycle}, #{uSeq}
+        )
+    </insert>
+
+    <!-- select all user -->
+    <select id="selectAllUser" resultType="com.bobjo.bobjo.DTO.userDTO">
+        SELECT *
+        FROM user
+    </select>
+
+    <!-- select A3Nick By USeq 대표 동물이름 얻기 -->
+    <select id="selectA3NickByUSeq" parameterType="int" resultType="String">
+        SELECT a3_nick
+        FROM animal3
+        WHERE u_seq = #{uSeq}
+        LIMIT 1
+    </select>
+
+    <!-- 친구 추가 -->
+    <update id="insertFriend" parameterType="map">
+        UPDATE user
+        SET u_friends = #{uFriends}
+        WHERE u_seq = #{uSeq}
+    </update>
+
+    <!-- 친구 처음 추가 -->
+    <update id="insertFirstFriend" parameterType="map">
+        UPDATE user
+        SET u_friends = #{newFriend}
+        WHERE u_seq = #{uSeq}
+    </update>
+
+    <!-- selectUAliasByUSeq -->
+    <select id="selectUAliasByUSeq" parameterType="int" resultType="String">
+        SELECT u_alias
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- upload file -->
+    <insert id="insertFile" parameterType="com.bobjo.bobjo.DTO.fileDTO">
+        INSERT INTO `file` (
+            o_seq, o_table, original_filename, save_filename, file_path, file_size
+        ) VALUES (
+            #{oSeq}, #{oTable}, #{originalFilename}, #{saveFilename}, #{filePath}, #{fileSize}
+        )
+    </insert>
+
+    <update id="updateTableForImage" parameterType="map">
+        UPDATE diary
+        SET d_thumb = #{dThumb}
+        WHERE d_seq = #{dSeq}
+    </update>
+
+
+    <!-- deleteDiary -->
+    <delete id="deleteDiary" parameterType="int">
+        DELETE FROM diary
+        WHERE d_seq = #{dSeq}
+    </delete>
+</mapper>

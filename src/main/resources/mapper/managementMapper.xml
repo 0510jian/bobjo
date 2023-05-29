@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.management.manageMapper">
+
+
+    <!-- delete user by uId -->
+    <delete id="deleteUserByUSeq" parameterType="int">
+        DELETE
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </delete>
+
+    <!-- delete board by bSeq -->
+    <delete id="deleteBoardByBSeq" parameterType="int">
+        DELETE
+        FROM board
+        WHERE b_seq = #{bSeq}
+    </delete>
+
+    <!-- delete sos by sSeq -->
+    <delete id="deleteSosBySSeq" parameterType="int">
+        DELETE
+        FROM sos
+        WHERE s_seq = #{sSeq}
+    </delete>
+
+    <!-- delete newfm by nSeq -->
+    <delete id="deleteNewfmByNSeq" parameterType="int">
+        DELETE
+        FROM newfm
+        WHERE n_seq = #{nSeq}
+    </delete>
+
+    <!-- select all certification -->
+    <select id="selectAllCertification" resultType="com.bobjo.bobjo.DTO.certificationDTO">
+        SELECT *
+        FROM certification
+        WHERE ce_result = 0
+    </select>
+
+    <!-- select uNick by uSeq -->
+    <select id="selectUNickByUSeq" parameterType="int" resultType="String">
+        SELECT u_nick
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- select a1Species by a1Seq -->
+    <select id="selectA1SpeciesByA1Seq" parameterType="int" resultType="String">
+        SELECT a1_species
+        FROM animal1
+        WHERE a1_seq = #{a1Seq}
+    </select>
+
+    <!-- select all board -->
+    <select id="selectAllBoard" resultType="com.bobjo.bobjo.DTO.boardDTO">
+        SELECT *
+        FROM board
+    </select>
+
+    <!-- select all sos -->
+    <select id="selectAllSos" resultType="com.bobjo.bobjo.DTO.sosDTO">
+        SELECT *
+        FROM sos
+    </select>
+
+    <!-- select all newfm -->
+    <select id="selectAllNewfm" resultType="com.bobjo.bobjo.DTO.newfmDTO">
+        SELECT *
+        FROM newfm
+    </select>
+
+    <!-- useq으로 ualias select -->
+    <select id="selectUAliasByUSeq" parameterType="int" resultType="String">
+        SELECT u_alias
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- seledt all user -->
+    <select id="selectAllUser" resultType="com.bobjo.bobjo.DTO.userDTO">
+        SELECT *
+        FROM user
+    </select>
+
+    <!-- select all animal1 -->
+    <select id="selectAllAnimal1" resultType="com.bobjo.bobjo.DTO.animal1DTO">
+        SELECT *
+        FROM animal1
+    </select>
+
+    <!-- select all quiz -->
+    <select id="selectAllQuiz" resultType="com.bobjo.bobjo.DTO.quizDTO">
+        SELECT *
+        FROM quiz
+    </select>
+
+    <!-- insert quiz -->
+    <insert id="insertQuiz" parameterType="com.bobjo.bobjo.DTO.quizDTO">
+        INSERT INTO quiz (
+            q_quiz, q_answer, a1_seq
+        ) VALUES (
+            #{qQuiz}, #{qAnswer}, #{a1Seq}
+        )
+    </insert>
+
+    <!-- selectCertificationByCeSeq -->
+    <select id="selectCertificationByCeSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.certificationDTO">
+        SELECT *
+        FROM certification
+        WHERE ce_seq = #{ceSeq}
+    </select>
+
+    <!-- selectAnimal1ByA1Seq -->
+    <select id="selectAnimal1ByA1Seq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal1DTO">
+        SELECT *
+        FROM animal1
+        WHERE a1_seq = #{a1Seq}
+    </select>
+
+    <!-- updateCertification -->
+    <update id="updateCertification" parameterType="int">
+        UPDATE certification
+        SET ce_result = 1
+        WHERE ce_seq = #{ceSeq}
+    </update>
+
+    <!-- deleteCertification -->
+    <delete id="deleteCertification" parameterType="int">
+        DELETE
+        FROM certification
+        WHERE ce_seq = #{ceSeq}
+    </delete>
+
+    <!-- selectUserByUSeq -->
+    <select id="selectUserByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.userDTO">
+        SELECT *
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- updateUserUCert -->
+    <update id="updateUserUCert" parameterType="map">
+        UPDATE user
+        SET u_cert = #{uCert}
+        WHERE u_seq = #{uSeq}
+    </update>
+
+    <!-- deleteQuizByQSeq -->
+    <delete id="deleteQuizByQSeq" parameterType="int">
+        DELETE
+        FROM quiz
+        WHERE q_seq = #{qSeq}
+    </delete>
+</mapper>

@@ -1,0 +1,209 @@
+     *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box; 
+            }
+
+             html{
+             background-color: rgb(255, 255, 255); 
+            }
+            html, body {
+                height: 100%;
+                margin:0;
+                padding:0;
+                }
+            .main_container {
+             width: 500px;
+             max-width: 500px;
+             margin: 0 auto;
+             padding: 0 30px;
+             box-shadow: 0 0 10px #506346;
+             height: 100%;
+             overflow-y: scroll; 
+            }
+            .main_container::-webkit-scrollbar{
+                display: none;
+            }
+            
+         
+             .xi-search{
+                z-index: 2;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            h3{
+                margin-top: 100px;
+            }
+            
+            /* 시작날짜 */
+            .datetime{
+                background-color: white;
+                width: 350px; 
+                height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 8px; 
+                text-align: center;
+                margin-top: 5px; 
+                margin-bottom: 10px;
+            }
+
+            /* 일정타이틀 선택버튼 */
+            .btn{
+                display: inline-block; 
+                background-color: rgb(219, 219, 219); 
+                width: 97px; height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 6px; 
+                text-align: center;
+                margin-top: 5px; 
+                margin-bottom: 10px; 
+                font-size: smaller;
+            }
+
+            /* 메모 */
+            #memo{
+                background-color: white;
+                width: 410px; 
+                height: 170px;
+                border: none; 
+                border-radius: 20px; 
+                padding: 5px; 
+                text-align: center;
+                margin-top: 10px; 
+                margin-bottom: 10px;
+            }
+
+            /* 나만보기 전체공개 선택버튼  */
+            .btn1{
+                display: inline-block; 
+                background-color:rgb(218,218,218); 
+                width: 100px; 
+                height: 30px; 
+                border: none; 
+                border-radius: 20px; 
+                padding: 6px; 
+                text-align: center;
+                margin-top: 10px; 
+                margin-bottom: 10px; 
+                font-size: smaller;
+                box-shadow: 1px 1px 1px 1px #C0C0C0;
+
+            }
+
+            /* 완료버튼  */
+            #com{ 
+                background-color: rgb(219, 219, 219); 
+                width: 100px; 
+                height: 30px; 
+                border: none;
+                border-radius: 20px; 
+                padding: 5px; 
+                text-align: center;
+                margin-top: 10px; 
+                margin-bottom: 10px; 
+                float: right; 
+                font-weight: bold;
+                box-shadow: 1px 1px 1px 1px #C0C0C0;
+
+            }
+            #com:hover{background-color: #115a30;  
+                letter-spacing: 0.5em;
+                 transition: 0.3s;
+                 text-indent: 10px;
+                color: #fff;
+            }
+
+
+section{
+margin-top: 120px;
+margin-bottom: 100px;
+}
+
+header{
+z-index: 1;
+background-color: white;
+position: fixed;
+top: 0px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+flex-wrap: wrap;
+width: 500px;
+border-bottom: 7px solid #ccc;
+}
+h1{
+cursor: pointer;
+width: 100%;
+text-align: center;
+padding-left: 10px;
+padding-bottom: 10px;
+margin-top:20px;
+}
+
+header div{
+width: 33.3%;
+text-align: center;
+position: relative;
+margin-right: 20px;
+font-size: 1.2rem;
+font-weight: 600;
+margin: 0;
+transition: 0.2s;
+cursor: pointer;
+}
+
+
+
+
+.button {
+  float: right;
+  margin-right: 20px;
+}
+
+.btnCancel {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  color: #000;
+  background-color: #FAFAFA;
+}
+
+.btnCancel:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  background-color: #CCC;
+}
+
+.btnWrite {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  width: 100px;
+  height: 30px;
+  color: black;
+  background-color: rgb(218, 218, 218);
+}
+
+.btnWrite:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: white;
+  background-color:#3C6255;
+}
+
+#footer1 {
+    background: #61876E;
+}

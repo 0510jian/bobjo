@@ -1,0 +1,158 @@
+*{
+margin: 0;
+padding: 0;
+list-style: none;
+text-decoration: none;
+box-sizing: border-box; 
+}
+html, body {
+    height: 100%;
+    margin:0;
+    padding:0;
+    }
+html{
+background-color: rgb(255, 255, 255);
+}
+.main_container {
+width: 500px;
+max-width: 500px;
+margin: 0 auto;
+padding: 0 30px;
+background: #ecede8 !important;
+box-shadow: 0 0 10px #506346;
+height: 100%;
+overflow-y: scroll;
+}
+.main_container::-webkit-scrollbar{
+    display: none;
+}
+.xi-search{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+header{
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    border-bottom: 7px solid #ccc;
+}
+h1{
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top:20px;
+}
+
+header div{
+    width: 33%;
+    text-align: center;
+    position: relative;
+    margin-right: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    transition: 0.2s;
+    cursor: pointer;
+}
+header div::after {
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 7px;
+    background-color: #f07635;
+}
+header div:hover{
+    color: #f07635;
+}
+header div:hover::after{
+    width: 100%;
+    transition: 0.5s;
+}
+
+
+.content{
+   background-color: white;
+    position: relative;
+    text-align: left;
+    width: 440px;
+    height: 70px;
+    margin: 10px auto;
+    padding: 15px;
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+    transition: 0.5s;
+    border-radius: 20px;
+}
+
+/*
+.content:hover{
+    background-color: #EDF1D6;
+}
+*/
+label{
+    display: flex;
+}
+#b_content{
+    font-weight: 600;
+}
+.writing_value{
+    display: flex;
+    font-size: 13px;
+}
+
+#u_seq{
+    margin-right: 30px;
+}
+
+.value{
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    padding: 5px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50px;
+    background-color: #61876E;
+    color:white;
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+}
+
+
+
+
+
+#myBlank {
+    margin-top: 20px;
+}
+.xi-search {
+    margin-top: 20px;
+}
+
+section{
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+#bTitle{
+    font-weight: bold;
+}
+
+#footer2 {
+    background: #61876E;
+}

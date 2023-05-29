@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.community.communityMapper">
+
+    <!-- 모든 sos select -->
+    <select id="selectAllSos" resultType="com.bobjo.bobjo.DTO.sosDTO">
+        SELECT *
+        FROM sos
+        ORDER BY s_fin asc, s_date desc;
+    </select>
+
+    <!-- useq으로 ualias select -->
+    <select id="selectUAliasByUSeq" parameterType="int" resultType="String">
+        SELECT u_alias
+        FROM user
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- insert sos -->
+    <insert id="insertSos" parameterType="com.bobjo.bobjo.DTO.sosDTO" useGeneratedKeys="true" keyProperty="sSeq">
+        INSERT INTO sos (
+        s_title, s_content, s_fin, s_image, u_seq
+        ) VALUES (
+        #{sTitle}, #{sContent}, #{sFin}, #{sImage}, #{uSeq}
+        )
+    </insert>
+
+    <!-- 모든 board select -->
+    <select id="selectAllBoard" resultType="com.bobjo.bobjo.DTO.boardDTO">
+        SELECT *
+        FROM board
+        WHERE b_remove = 0
+        ORDER BY b_date desc;
+    </select>
+
+    <!-- insert board -->
+    <insert id="insertBoard" parameterType="com.bobjo.bobjo.DTO.boardDTO" useGeneratedKeys="true" keyProperty="bSeq">
+        INSERT INTO board (
+        b_title, b_content, b_cate, b_image, u_seq
+        ) VALUES (
+        #{bTitle}, #{bContent}, #{bCate}, #{bImage}, #{uSeq}
+        )
+    </insert>
+
+    <!-- select board by bSeq -->
+    <select id="selectBoardByBSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.boardDTO">
+        SELECT *
+        FROM board
+        WHERE b_seq = #{bSeq}
+    </select>
+
+    <!-- update bRemove by bSeq -->
+    <update id="updateBRemoveByBSeq" parameterType="int">
+        UPDATE board
+        SET b_remove = 1
+        WHERE b_seq = #{bSeq}
+    </update>
+
+    <!-- delete board by bSeq -->
+    <delete id="deleteBoardByBSeq" parameterType="int">
+        DELETE
+        FROM board
+        WHERE b_seq = #{bSeq}
+    </delete>
+
+    <!-- update board -->
+    <update id="updateBoard" parameterType="com.bobjo.bobjo.DTO.boardDTO">
+        UPDATE board
+        SET b_title = #{bTitle},
+            b_content = #{bContent},
+            b_cate = #{bCate}
+        WHERE b_seq = #{bSeq}
+    </update>
+
+    <!-- select sos by sSeq -->
+    <select id="selectSosBySSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.sosDTO">
+        SELECT *
+        FROM sos
+        WHERE s_seq = #{sSeq}
+    </select>
+
+    <!-- update sos sFin -->
+    <update id="updateSosSFin" parameterType="int">
+        UPDATE sos
+        SET s_fin = true
+        WHERE s_seq = #{sSeq}
+    </update>
+
+    <!-- uSeq으로 animal3 select -->
+    <select id="selectAllAnimal3ByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal3DTO">
+        SELECT *
+        FROM animal3
+        WHERE u_seq = #{uSeq}
+    </select>
+
+    <!-- insert walk -->
+    <insert id="insertWalk" parameterType="com.bobjo.bobjo.DTO.walkDTO">
+        INSERT INTO walk (
+            w_latlng, w_time, w_content, u_seq, a3_seq
+        ) VALUES (
+            #{wLatlng}, #{wTime}, #{wContent}, #{uSeq}, #{a3Seq}
+        )
+    </insert>
+
+    <!-- select all walk -->
+    <select id="selectAllWalk" resultType="com.bobjo.bobjo.DTO.walkDTO">
+        SELECT *
+        FROM walk
+        ORDER BY w_seq DESC
+    </select>
+
+    <!-- select a2Seq by a3Seq -->
+    <select id="selectA2SeqByA3Seq" parameterType="int" resultType="int">
+        SELECT a2_seq
+        FROM animal3
+        WHERE a3_seq = #{a3Seq}
+    </select>
+
+    <!-- selecte a2Species by a2Seq -->
+    <select id="selectA2SpeciesByA2Seq" parameterType="int" resultType="String">
+        SELECT a2_species
+        FROM animal2
+        WHERE a2_seq = #{a2Seq}
+    </select>
+
+    <!-- select walk by wSeq -->
+    <select id="selectWalkByWSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.walkDTO">
+        SELECT *
+        FROM walk
+        WHERE w_seq = #{wSeq}
+    </select>
+
+    <!-- select animal3 by a3Seq -->
+    <select id="selectAnimal3ByA3Seq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal3DTO">
+        SELECT *
+        FROM animal3
+        WHERE a3_seq = #{a3Seq}
+    </select>
+
+    <!-- delete walk -->
+    <delete id="deleteWalk" parameterType="int">
+        DELETE
+        FROM walk
+        WHERE w_seq = #{wSeq}
+    </delete>
+
+    <!-- upload file -->
+    <insert id="insertFile" parameterType="com.bobjo.bobjo.DTO.fileDTO">
+        INSERT INTO `file` (
+        o_seq, o_table, original_filename, save_filename, file_path, file_size
+        ) VALUES (
+        #{oSeq}, #{oTable}, #{originalFilename}, #{saveFilename}, #{filePath}, #{fileSize}
+        )
+    </insert>
+
+    <update id="updateTableForImageSos" parameterType="map">
+        UPDATE sos
+        SET s_image = #{sImage}
+        WHERE s_seq = #{sSeq}
+    </update>
+
+    <update id="updateTableForImageBoard" parameterType="map">
+        UPDATE board
+        SET b_image = #{bImage}
+        WHERE b_seq = #{bSeq}
+    </update>
+
+    <!-- delete file -->
+    <delete id="deleteFile" parameterType="int">
+        DELETE
+        FROM `file`
+        WHERE o_table = 'board' AND o_seq = #{oSeq}
+    </delete>
+
+    <!-- select reply by seq -->
+    <select id="selectReplyBySeq" parameterType="map" resultType="com.bobjo.bobjo.DTO.replyDTO">
+        SELECT *
+        FROM reply
+        WHERE r_cate = #{rCate} AND co_seq = #{seq}
+    </select>
+
+    <!-- insertReply -->
+    <insert id="insertReply" parameterType="com.bobjo.bobjo.DTO.replyDTO">
+        INSERT INTO `reply` (
+            r_priv, r_content, r_cate, u_seq, co_seq
+        ) VALUES (
+            false, #{rContent}, #{rCate}, #{uSeq}, #{coSeq}
+        )
+    </insert>
+
+    <!-- delete reply -->
+    <delete id="deleteReply" parameterType="int">
+        DELETE
+        FROM reply
+        WHERE r_seq = #{rSeq}
+    </delete>
+
+    <!-- selectUSeqByWSeq -->
+    <select id="selectUSeqByWSeq" parameterType="int" resultType="int">
+        SELECT u_seq
+        FROM walk
+        WHERE w_seq = #{wSeq}
+    </select>
+
+    <!-- insertWalkmate -->
+    <insert id="insertWalkmate" parameterType="com.bobjo.bobjo.DTO.walkmateDTO">
+        INSERT INTO walkmate (
+            wm_propose, wm_accept, wm_content, w_seq, a3_seq
+        ) VALUES (
+            #{wmPropose}, #{wmAccept}, #{wmContent}, #{wSeq}, #{a3Seq}
+        )
+    </insert>
+
+
+
+
+
+
+
+
+
+    <!-- selectWalkmateByUSeq -->
+    <select id="selectWalkmateByUSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.walkmateDTO">
+        SELECT *
+        FROM walkmate
+        WHERE wm_accept = #{uSeq} AND wm_res = 0
+    </select>
+
+    <!-- selectA3NickByA3Seq -->
+    <select id="selectA3NickByA3Seq" parameterType="int" resultType="String">
+        SELECT a3_nick
+        FROM animal3
+        WHERE a3_seq = #{a3Seq}
+    </select>
+
+    <!-- deleteWalkmate -->
+    <delete id="deleteWalkmate" parameterType="int">
+        DELETE FROM walkmate
+        WHERE wm_seq = #{wmSeq}
+    </delete>
+
+    <!-- updateWalkmate -->
+    <update id="updateWalkmate" parameterType="int">
+        UPDATE walkmate
+        SET wm_res = 1
+        WHERE wm_seq = #{wmSeq}
+    </update>
+
+</mapper>

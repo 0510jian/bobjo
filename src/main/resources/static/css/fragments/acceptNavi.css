@@ -1,0 +1,135 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+
+.float_container {
+
+  z-index : 5;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 300px;
+  max-height: 70%;
+  border-radius: 30px;
+box-shadow: 0 0 5px #506346;
+  background: white;
+  text-align: center;
+
+  overflow-y: scroll;
+}
+.float_container::-webkit-scrollbar{
+display: none;
+}
+
+.naviAlert {
+  margin: 15px;
+}
+
+#naviA3_nick {
+  text-align: center;
+  padding: 10px;
+  font-size: 25px;
+}
+
+#naviCont {
+  padding: 10px;
+  border: 1px solid darkgreen;
+  border-radius: 15px;
+  text-align: left;
+}
+
+#naviMessage {
+    width:100%;
+
+    margin-top:5px;
+    display: block;
+    background: rgb(236,236,236);
+    border-radius: 10px;
+    padding: 10px;
+
+    font-size:0.8em;
+}
+
+#naviO {
+
+    z-index : 5;
+
+    position: fixed;
+    bottom: 30px;
+    right:30px;
+
+    width:50px;
+    height: 50px;
+
+    border: none;
+    border-radius:50px;
+
+    background: #3C6255;
+    color: white;
+
+    padding-left: 0px;
+      padding-right: 0px;
+
+    margin-bottom: 0px;
+    margin-right: 0px;
+
+}
+
+
+
+#naviX {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background: gray;
+  color: white;
+  border-radius: 20px;
+
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right: 0px;
+
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.btnRefuse, .btnPermit {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  width: 120px;
+  height: 30px;
+  color: #000;
+  background-color: #FAFAFA;
+}
+
+.btnRefuse:hover {
+letter-spacing: 0.5em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: #fff;
+  background-color: #fa5162;
+}
+
+
+.btnPermit:hover {
+  letter-spacing: 0.5em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: #fff;
+  background-color: #3C6255;
+}
+
+.naviButton{
+margin-top: 15px;
+}
+
+.alertSet {
+text-align: center;
+}

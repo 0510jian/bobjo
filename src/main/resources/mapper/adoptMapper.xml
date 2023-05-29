@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.adopt.adoptMapper">
+
+    <!-- nAdopt로 newfm select -->
+    <select id="selectAllNewfmByNAdopt" parameterType="boolean" resultType="com.bobjo.bobjo.DTO.newfmDTO">
+        SELECT *
+        FROM newfm
+        WHERE n_adopt = #{nAdopt}
+    </select>
+
+    <!-- 모든 animal1 select -->
+    <select id="selectAllAnimal1" resultType="com.bobjo.bobjo.DTO.animal1DTO">
+        SELECT *
+        FROM animal1
+    </select>
+
+    <!-- 모든 animal2 select -->
+    <select id="selectAllAnimal2" resultType="com.bobjo.bobjo.DTO.animal2DTO">
+        SELECT *
+        FROM animal2
+    </select>
+
+    <!-- a1seq 별로 animal2 select -->
+    <select id="selectAllAnimal2ByA1Seq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal2DTO">
+        SELECT *
+        FROM animal2
+        WHERE a1_seq = #{a1Seq}
+    </select>
+
+    <!-- insert newfm -->
+    <insert id="insertNewfm" parameterType="com.bobjo.bobjo.DTO.newfmDTO" useGeneratedKeys="true" keyProperty="nSeq">
+        INSERT INTO newfm (
+            n_adopt, n_birth, n_sex, n_content, a1_seq, a2_seq, u_seq
+        ) VALUES (
+            #{nAdopt}, #{nBirth}, #{nSex}, #{nContent}, #{a1Seq}, #{a2Seq}, #{uSeq}
+        )
+    </insert>
+
+    <!-- a2Seq으로 a2Species select -->
+    <select id="selectA2SpeciesByA12Seq" parameterType="map" resultType="String">
+        SELECT a2_species
+        FROM animal2
+        WHERE a1_seq = #{a1Seq} AND a2_seq = #{a2Seq}
+    </select>
+
+    <!-- nSeq으로 newfm select -->
+    <select id="selectNewfmByNSeq" parameterType="int" resultType="com.bobjo.bobjo.DTO.newfmDTO">
+        SELECT *
+        FROM newfm
+        WHERE n_seq = #{nSeq}
+    </select>
+
+
+    <!-- delete adopt -->
+    <delete id="deleteAdopt" parameterType="int">
+        DELETE
+        FROM newfm
+        WHERE n_seq = #{nSeq}
+    </delete>
+
+    <!-- upload file -->
+    <insert id="insertFile" parameterType="com.bobjo.bobjo.DTO.fileDTO">
+        INSERT INTO `file` (
+        o_seq, o_table, original_filename, save_filename, file_path, file_size
+        ) VALUES (
+        #{oSeq}, #{oTable}, #{originalFilename}, #{saveFilename}, #{filePath}, #{fileSize}
+        )
+    </insert>
+
+    <update id="updateTableForImage" parameterType="map">
+        UPDATE newfm
+        SET n_thumb = #{nThumb}
+        WHERE n_seq = #{nSeq}
+    </update>
+
+    <!-- delete file -->
+    <delete id="deleteFile" parameterType="int">
+        DELETE
+        FROM `file`
+        WHERE o_table = 'newfm' AND o_seq = #{oSeq}
+    </delete>
+
+    <!-- select 3 quiz -->
+    <select id="select3Quiz" parameterType="int" resultType="com.bobjo.bobjo.DTO.quizDTO">
+        SELECT *
+        FROM quiz
+        WHERE a1_seq = #{a1Seq}
+        ORDER BY rand() LIMIT 3
+    </select>
+
+    <!-- selectAnimal1ByA1Seq -->
+    <select id="selectAnimal1ByA1Seq" parameterType="int" resultType="com.bobjo.bobjo.DTO.animal1DTO">
+        SELECT *
+        FROM animal1
+        WHERE a1_seq = #{a1Seq}
+    </select>
+
+    <!-- insertCertification -->
+    <insert id="insertCertification" parameterType="com.bobjo.bobjo.DTO.certificationDTO" useGeneratedKeys="true" keyProperty="ceSeq">
+        INSERT INTO certification (
+            u_seq, a1_seq
+        ) VALUES (
+            #{uSeq}, #{a1Seq}
+        )
+    </insert>
+
+    <update id="updateCertificationForImage1" parameterType="map">
+        UPDATE certification
+        SET ce_image1 = #{ceImage1}
+        WHERE ce_seq = #{ceSeq}
+    </update>
+
+    <update id="updateCertificationForImage2" parameterType="map">
+        UPDATE certification
+        SET ce_image2 = #{ceImage2}
+        WHERE ce_seq = #{ceSeq}
+    </update>
+</mapper>

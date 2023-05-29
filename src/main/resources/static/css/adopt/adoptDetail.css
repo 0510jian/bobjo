@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin:0;
+    padding:0;
+    }
+
+html{
+    background-color: rgb(255, 255, 255);
+}
+.main_container {
+    width: 500px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 30px;
+    background: #ecede8 !important;
+    box-shadow: 0 0 10px #506346;
+    height: 100%;
+    overflow-y: scroll;
+}
+.main_container::-webkit-scrollbar{
+    display: none;
+}
+
+.container {
+    display: inline-block;
+}
+.text_wrapper:hover {
+    color: green;
+}
+.image {
+    width: 210px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.infoView {
+    width: 210px;
+    text-align: left;
+    margin-left: 10px;
+
+}
+.contentView {
+    margin-top: 20px;
+    height: auto;
+    width: 440px;
+    background-color: rgb(218, 218, 218);
+    border-radius: 20px;
+}
+.textView {
+    padding: 20px;
+    background: white;
+    border-radius:20px;
+}
+
+
+
+
+#myBlank {
+    margin-top: 20px;
+}
+
+section{
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+
+header{
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    border-bottom: 7px solid #ccc;
+    margin-bottom: 10px;
+}
+h1{
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top:20px;
+}
+
+header div{
+    width: 33%;
+    text-align: center;
+    position: relative;
+    margin-right: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    transition: 0.2s;
+    cursor: pointer;
+}
+header div::after {
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 7px;
+    background-color:#f07635;
+}
+header div:hover{
+    color: #f07635
+}
+header div:hover::after{
+    width: 100%;
+    transition: 0.5s;
+}
+.button {
+  float: right;
+}
+
+.btnCancel {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  color: #000;
+  background-color: #FAFAFA;
+}
+
+.btnCancel:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  background-color: #CCC;
+}
+
+.btnWrite {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  width: 100px;
+  height: 30px;
+  color: black;
+  background-color: rgb(218, 218, 218);
+}
+
+.btnWrite:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: white;
+  background-color: #fa5162;
+}
+
+#footer3 {
+    background: #61876E;
+}

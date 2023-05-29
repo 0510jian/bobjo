@@ -1,0 +1,183 @@
+*{
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+      html, body {
+      background:rgb(245,245,245) !important;
+      }
+      .main_container {
+      background: white !important;
+      }
+
+html, body {
+        height: 100%;
+        margin:0;
+        padding:0;
+        }
+  
+  .main_container {
+    width: 500px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 30px;
+    padding-bottom: 104px; 
+    max-width: 500px;
+    box-shadow: 0 0 5px rgb(218, 218, 218);
+
+    overflow-y: scroll;
+    height:100%;
+  }
+
+  .main_container::-webkit-scrollbar{
+      display: none;
+      }
+
+  
+  h1{
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .title{
+    text-align: center;
+  }
+  
+ 
+
+
+  /* 관리자 */
+  .list{
+    border: 1px solid black;
+    height: 700px;
+    overflow: auto;
+  }
+  .member{
+    margin: 0 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    padding: 0 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    transition: 1s;
+  }
+  .member:hover{
+    background-color: #eee;
+  }
+  .member>div{
+    width: 50%;
+    text-align: center;
+  }
+  .species{
+        border-radius: 30px;
+        background-color: #ccc;
+        padding: 5px;
+  }
+  .photo_list{
+    border: 1px solid black;
+    padding: 20px;
+  }
+
+  button{
+    width: 70px;
+    height: 35px;
+    border-radius: 50px;
+    border: none;
+    transition: 1s;
+  }
+  button:hover{
+    background-color: #ccc;
+  }
+.answer {
+width: 30px;
+height: 30px;
+padding: 5px;
+
+margin: 0px 20px;
+
+font-size: 10pt;
+}
+
+img {
+height: 200px;
+width: 200px;
+}
+
+#c_materialName {
+text-align: left;
+overflow-y: scroll;
+}
+
+#c_materialName2 {
+text-align: left;
+overflow-y: scroll;
+}
+
+.step {
+text-align: center;
+margin: 20px 0px;
+position: relative;
+}
+
+.btnCancel {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  color: #000;
+  background-color: #FAFAFA;
+}
+
+.btnCancel:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  background-color: #CCC;
+}
+
+.btnWrite {
+  border: 0px solid;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px #C0C0C0;
+  width: 100px;
+  height: 30px;
+  color: black;
+  background-color: rgb(218, 218, 218);
+}
+
+.btnWrite:hover {
+  letter-spacing: 1em;
+  transition: 0.3s;
+  text-indent: 10px;
+  color: white;
+  background-color: darkgreen;
+}
+
+input {
+margin: 10px 0px;
+}
+
+a { text-decoration: none; color: black;}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+
+@font-face {
+    font-family: 'NEXONFootballGothicBA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+   font-family: 'NEXONFootballGothicBA1';
+}

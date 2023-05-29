@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bobjo.bobjo.login.loginMapper">
+
+    <!-- 로그인 프로세스 -->
+    <select id="selectUser" parameterType="map" resultType="com.bobjo.bobjo.DTO.userDTO">
+        SELECT *
+        FROM user
+        WHERE u_id = #{id} AND u_pw = #{pw}
+    </select>
+
+    <!-- 회원가입 프로세스 -->
+    <insert id="insertUser" parameterType="com.bobjo.bobjo.DTO.userDTO">
+        INSERT INTO user (
+            u_id, u_pw, u_name, u_alias, u_birth,
+            u_mail, u_tel, u_addr
+        ) VALUES (
+            #{uId}, #{uPw}, #{uName}, #{uAlias}, #{uBirth},
+            #{uMail}, #{uTel}, #{uAddr}
+        )
+    </insert>
+
+</mapper>

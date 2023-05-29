@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;   
+}
+    html, body {
+    background:rgb(245,245,245) !important;
+    }
+    .main_container {
+    background: white !important;
+    }
+html, body {
+        height: 100%;
+        margin:0;
+        padding:0;
+        }
+
+
+.xi-search{
+    z-index: 2;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.main_container{
+    width: 500px;
+    height: 100%;
+    background-color: white;
+    margin: 0 auto;
+    padding: 30px;
+    padding-bottom: 104px; 
+    max-width: 500px;
+    box-shadow: 0 0 5px rgb(218, 218, 218);
+    overflow-y: scroll;
+}
+
+.main_container::-webkit-scrollbar{
+    display: none;
+    }
+
+
+h1{
+    text-align: center;
+    margin: 30px 0;
+}
+
+section{
+    overflow: auto;
+    height: 700px;
+    border: 1px solid black;
+}
+.search{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.search_text{
+    display: inline-block;
+    height: 30px;
+   width: 70%;
+}
+.search_btn{
+    font-size: 20px;
+    padding: 10px;
+    vertical-align: 30px;
+    
+    border: none;
+    border-radius: 50px;
+    font-size: 20px;
+
+    width: 80px;
+   
+    
+}
+.search_btn:hover{
+    background-color: #ccc;
+    color: white;
+}
+
+.content{
+    position: relative;
+    text-align: left;
+    width: 400px;
+    margin: 0 auto;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+label{
+    display: flex;
+}
+#b_content{
+    font-weight: 600;
+}
+.writing_value{
+    display: flex;
+    font-size: 13px;
+}
+
+#u_seq{
+    margin-right: 30px;
+}
+
+/* 삭제버튼 */
+.delete{
+    padding: 5px;
+   
+    border-radius: 50px;
+    background-color: #eee;
+    float: right;
+}
+.delete:hover{
+    background-color: #ccc;
+    color: white;
+}
+
+table { width: 100%;}
+
+
+
+footer{
+    background-color: lightgrey;
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    width: 500px;
+    height: 100px;
+    transform: translateX(-50%);
+    display: flex;
+}
+footer>div{
+    text-align: center;
+    width: 25%;
+    transition: 0.5s;
+    /* margin-top: 10px; */
+}
+footer>div>i{
+    margin-top: 10px;
+    font-size: 40px;
+}
+footer>div>p{
+    padding-top: 10px;
+}
+footer>div:hover{
+    background-color: grey;
+}
+a { text-decoration: none; color: black;}
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+
+@font-face {
+    font-family: 'NEXONFootballGothicBA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+   font-family: 'NEXONFootballGothicBA1';
+}

@@ -1,0 +1,260 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box; 
+    }
+
+    html, body {
+    height: 100%;
+    margin:0;
+    padding:0;
+    }
+     html{
+     background-color: rgb(255, 255, 255); 
+    } 
+    .main_container {
+    width: 500px;
+    height:100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 30px;
+    box-shadow: 0 0 10px #506346;
+    overflow-y: scroll; 
+    }
+    .main_container::-webkit-scrollbar{
+        display: none;
+    }
+    .xi-search{
+        z-index: 2;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+
+.content{
+   margin-top: 100px;
+   
+}
+section{
+margin-top: 120px;
+margin-bottom: 100px;
+}
+
+/* 친구 목록 */
+.friend{
+    width: 100%;
+    height: 30px;
+    margin-bottom:40px;
+}
+
+.friendList {
+    display: inline-block;
+    width:370px;
+        height:31px;
+        margin-top:10px;
+        white-space: nowrap;
+        overflow: auto;
+}
+.friendList::-webkit-scrollbar{
+        display: none;
+    }
+
+/* 친구이름 */
+.u_alias{
+    padding: 5px;
+    padding-left:10px; padding-right:10px;
+   height: 30px;
+   background-color: white;
+    display: inline-block;
+    border-radius: 50px;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+    margin-bottom: 10px;
+    margin-right: 10px;
+
+}
+
+/* 달력css */
+
+
+.custom_calendar_table{
+    height: 450px;
+}
+
+.custom_calendar_table thead.cal_date .prev{
+    font-size: 2rem;
+    cursor: pointer;
+}
+.custom_calendar_table thead.cal_date .next{
+    font-size: 2rem;
+    cursor: pointer;
+}
+.custom_calendar_table thead.cal_date .prev:hover{
+    color: darkgreen;
+}
+.custom_calendar_table thead.cal_date .next:hover{
+    color: darkgreen;
+}
+.custom_calendar_table td {
+    text-align: center;
+}
+
+
+.custom_calendar_table thead.cal_date th {
+    font-size: 1.5rem;
+}
+
+.custom_calendar_table thead.cal_date th button {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+}
+
+
+.custom_calendar_table thead.cal_week th {
+    /* background-color: #288CFF; */
+    background-color: #fff;
+    color: black;
+    
+}
+
+.custom_calendar_table tbody td {
+    cursor: pointer;
+    transition: 0.5s;
+}
+.custom_calendar_table tbody td:hover{
+    color: #fff;
+    background-color: #ccc;
+}
+
+.custom_calendar_table tbody td:nth-child(1) {
+    color: red;
+}
+
+.custom_calendar_table tbody td:nth-child(7) {
+    color: #288CFF;
+}
+
+.custom_calendar_table tbody td.select_day {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/* 일정 */
+.scheduleList{
+    height: auto;
+    width: 100%;
+}
+.schedule{
+    display: flex;
+    width: 400px;
+    margin: auto;
+    /* margin: 0 auto; */
+    border-bottom: 1px solid black;
+
+    vertical-align: middle;
+
+    height: 30px;
+    line-height: 30px;
+
+    margin: 5px 0px;
+}
+
+.c_title{
+    margin-left: 50px;
+    color: #3C6255;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+header{
+z-index: 1;
+background-color: white;
+position: fixed;
+top: 0px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+flex-wrap: wrap;
+width: 500px;
+border-bottom: 7px solid #ccc;
+}
+h1{
+margin-top: 20px;
+cursor: pointer;
+width: 100%;
+text-align: center;
+padding-left: 10px;
+padding-bottom: 10px;
+}
+
+header div{
+width: 33.3%;
+text-align: center;
+position: relative;
+margin-right: 20px;
+font-size: 1.2rem;
+font-weight: 600;
+margin: 0;
+transition: 0.2s;
+cursor: pointer;
+}
+header div::after {
+position: absolute;
+left: 0;
+bottom: -7px;
+content: '';
+display: inline-block;
+width: 0;
+height: 7px;
+background-color: #f07635;
+}
+header div:hover{
+color: #f07635;
+}
+header div:hover::after{
+width: 100%;
+transition: 0.5s;
+}
+
+
+.button{
+    width: 100px;
+    height: 30px;
+    padding: 7px;
+    border-radius: 50px;
+    border: none;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: rgb(220, 220, 220);
+    box-shadow: 1px 1px 1px 1px #C0C0C0;
+}
+
+#footer1 {
+    background: #61876E;
+}
+
+.cateBtn {
+    background : red;
+    border-radius: 20px;
+    padding : 0px 10px;
+}
+
+
+.moveHorizontal {
+height:30px;
+display: inline-block;
+padding: 0px 5px;
+border: 1px solid black;
+border-radius:50px;
+cursor: default;
+background: white;
+}
