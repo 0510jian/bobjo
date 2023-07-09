@@ -1,6 +1,5 @@
 # 올인원 펫 플랫폼 BOBJO
-구현 결과 : [PPTX](https://docs.google.com/presentation/d/15EhzNTp1JdWkBd9qNnsH2CUY_Ks2LMa1/edit?usp=drive_link&ouid=106416664800223116599&rtpof=true&sd=true)  
-(이미지 정상적으로 표시되지 않는 부분은 추후 수정 예정)
+![image](https://github.com/0510jian/bobjo/assets/124128448/9ab45cf7-14b1-4e7e-ba05-61053e258644)
 
 # 개발 참여
 [@0510jian](https://github.com/0510jian)  
